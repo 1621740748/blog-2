@@ -36,7 +36,7 @@ pagehelper:
 
 # Enable template caching.
 thymeleaf:
-    cache: true
+    cache: false
 # Check that the templates location exists.
     check-template-location: true
 # Content-Type value.

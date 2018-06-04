@@ -20,4 +20,9 @@ public class ArticleServiceImpl implements ArticleService {
         PageHelper.startPage(pageNum, pageSize);
         return articleMapper.getAllArticle();
     }
+
+    @Override
+    public Article get(int id) {
+        return articleMapper.selectByPrimaryKey(id);
+    }
 }
