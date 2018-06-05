@@ -33,6 +33,11 @@
     from blog_article
   </select>
 
+  <!-- 增加点击量 -->
+  <update id="addCkickCount" parameterType="java.lang.Integer">
+      update blog_article set ckick_count = ckick_count+1 where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

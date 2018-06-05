@@ -55,6 +55,7 @@ public class ArticleController {
     @RequestMapping("/detail/{id}")
     public String detail(@PathVariable("id") int id, ModelMap model){
         Article article = articleService.get(id);
+        articleService.addCkickCount(id);//增加一个点击量
         model.addAttribute("article", article);
         return "detail";
     }

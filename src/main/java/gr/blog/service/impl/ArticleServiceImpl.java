@@ -1,6 +1,5 @@
 package gr.blog.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import gr.blog.mapper.ArticleMapper;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
@@ -24,5 +23,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article get(int id) {
         return articleMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void addCkickCount(int id) {
+        articleMapper.addCkickCount(id);
     }
 }

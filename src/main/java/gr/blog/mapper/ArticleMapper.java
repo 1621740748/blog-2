@@ -20,4 +20,6 @@ public interface ArticleMapper {
     int updateByPrimaryKey(Article record);
 
     List<Article> getAllArticle();
+
+    void addCkickCount(int id);
 }
