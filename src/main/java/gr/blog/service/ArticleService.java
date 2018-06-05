@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<Article> findArticleList(int pageNum, int pageSize);
+    List<Article> findArticleList();
 
     Article get(int id);
 }

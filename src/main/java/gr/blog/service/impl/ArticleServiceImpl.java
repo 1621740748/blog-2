@@ -16,8 +16,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Override
-    public List<Article> findArticleList(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<Article> findArticleList() {
+
         return articleMapper.getAllArticle();
     }
 

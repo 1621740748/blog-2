@@ -1,5 +1,7 @@
 package gr.blog.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,33 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    /**
+     * 首页列表展示
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/","/index"})
     public String list(ModelMap model){
-        List<Article> articleList = articleService.findArticleList(1, 4);
+        PageHelper.startPage(1, 4);//分页默认是每页4个元素
+        List<Article> articleList = articleService.findArticleList();
+        PageInfo<Article> info = new PageInfo<Article>(articleList);
+        model.addAttribute("page", info);
+        model.addAttribute("articleList", articleList);
+        return "index";
+    }
+
+    /**
+     * 分页
+     * @param model
+     * @param pageNum
+     * @return
+     */
+    @RequestMapping(value = {"/page/{pageNum}"})
+    public String page(ModelMap model, @PathVariable("pageNum") int pageNum){
+        PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
+        List<Article> articleList = articleService.findArticleList();
+        PageInfo<Article> info = new PageInfo<Article>(articleList);
+        model.addAttribute("page", info);
         model.addAttribute("articleList", articleList);
         return "index";
     }
