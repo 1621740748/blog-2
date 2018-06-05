@@ -23,6 +23,8 @@ public class Article {
 
     private String content;
 
+    private  String photo;
+
     public Integer getId() {
         return id;
     }
@@ -101,5 +103,13 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

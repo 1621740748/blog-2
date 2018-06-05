@@ -35,17 +35,15 @@
                 <div class="col-md-8 blog-main">
                     <article class="blog-post">
                         <header>
-                           
                             <div class="lead-image">
-                                <img th:src="${path}+'/img/single-post.jpg'" alt="" class="img-responsive"></img>
-
+                                <img th:src="${article.photo}" alt="" class="img-responsive"></img>
                             </div>
                         </header>
+
                         <div class="body">
                             <h1 th:text="${article.title}"></h1>
                             <div class="meta">
                                 <i class="fa fa-user"></i><span th:text="${article.authorId}"></span><i class="fa fa-calendar"></i><span th:text="${#dates.format(article.datePublish, 'yyyy-MM-dd')}"></span><i class="fa fa-comments"></i><span class="data"><a href="#comments">3 条评论</a></span>
-
                             </div>
                             <p th:text="${article.content}">文章主体</p>
                         </div>

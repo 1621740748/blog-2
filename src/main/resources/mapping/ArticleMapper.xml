@@ -11,13 +11,14 @@
     <result column="author_id" property="authorId" jdbcType="INTEGER" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="gr.blog.model.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, title, description, ckick_count, is_recommend, date_publish, author_id, category_id, 
-    tag_id
+    tag_id,photo
   </sql>
   <sql id="Blob_Column_List" >
     content
