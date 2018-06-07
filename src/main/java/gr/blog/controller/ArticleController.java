@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ArticleController {
      * @param model
      * @return
      */
-    @RequestMapping(value = {"/","/index"})
+    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String list(ModelMap model){
         PageHelper.startPage(1, 4);//分页默认是每页4个元素
         List<Article> articleList = articleService.findArticleList();
@@ -39,7 +40,7 @@ public class ArticleController {
      * @param pageNum
      * @return
      */
-    @RequestMapping(value = {"/page/{pageNum}"})
+    @RequestMapping(value = {"/page/{pageNum}"}, method = RequestMethod.GET)
     public String page(ModelMap model, @PathVariable("pageNum") int pageNum){
         PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
         List<Article> articleList = articleService.findArticleList();
@@ -52,7 +53,7 @@ public class ArticleController {
     /**
      * 根据文章id查询文章详细信息
      */
-    @RequestMapping("/detail/{id}")
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public String detail(@PathVariable("id") int id, ModelMap model){
         Article article = articleService.get(id);
         articleService.addCkickCount(id);//增加一个点击量
