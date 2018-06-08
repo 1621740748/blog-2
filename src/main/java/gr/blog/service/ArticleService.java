@@ -15,4 +15,10 @@ public interface ArticleService {
      * @param id
      */
     void addCkickCount(int id);
+
+    /**
+     * 新增一条记录
+     * @param article
+     */
+    void addRecord(Article article);
 }

@@ -1,9 +1,11 @@
 package gr.blog.controller;
 
+import gr.blog.model.Article;
+import gr.blog.service.ArticleService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 后台管理模块
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/back")
 @Controller
 public class BackstageManagerController {
+
+    @Autowired
+    private ArticleService articleService;
 
     @ApiOperation("后台首页")
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -31,13 +36,11 @@ public class BackstageManagerController {
     @RequestMapping(value = "/article/input",method = RequestMethod.GET)
     public String input(){ return "backstage/articleInput"; }
 
-
-    public String articleAdd(){
-        try {
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return "";
+    @ApiOperation("后台管理-文章新增/修改")
+    @RequestMapping(value = {"/article/add"}, method = RequestMethod.POST)
+    public String articleAdd(@ModelAttribute Article article){
+        //System.out.println(article.toString());
+        articleService.addRecord(article);
+        return "redirect:/back/article";
     }
 }

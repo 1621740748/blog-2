@@ -1,5 +1,5 @@
 CREATE TABLE `blog_article` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) COLLATE utf8_bin DEFAULT NULL COMMENT '文章标题',
   `description` varchar(45) COLLATE utf8_bin DEFAULT NULL COMMENT '文章描述',
   `content` text COLLATE utf8_bin COMMENT '文章内容)',
@@ -11,4 +11,4 @@ CREATE TABLE `blog_article` (
   `tag_id` int(11) DEFAULT NULL COMMENT '标签',
   `photo` varchar(2000) COLLATE utf8_bin DEFAULT NULL COMMENT '文章图片简介',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='文章表'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='文章表'

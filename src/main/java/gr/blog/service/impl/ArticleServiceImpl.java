@@ -29,4 +29,9 @@ public class ArticleServiceImpl implements ArticleService {
     public void addCkickCount(int id) {
         articleMapper.addCkickCount(id);
     }
+
+    @Override
+    public void addRecord(Article article) {
+        articleMapper.insertSelective(article);
+    }
 }
