@@ -12,18 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BackstageManagerController {
 
+    @ApiOperation("后台首页")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(){
 
         return "backstage/index";
     }
 
-
-    /**
-     * 后台管理-文章管理-文章列表展示
-     * @return
-     */
-    @ApiOperation(value = "后台-文章管理首页", notes = "页面点击导航栏进入文章管理，文章以表格形式展示。")
+    @ApiOperation(value = "后台-文章列表展示", notes = "页面点击导航栏进入文章管理，文章以表格形式展示。")
     //@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")//这段是对参数进行解释
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     public String articleList(){
@@ -31,8 +27,17 @@ public class BackstageManagerController {
         return "backstage/articleList";
     }
 
-    @RequestMapping("/article/add")
-    public String input(){
-        return "backstage/articleInput";
+    @ApiOperation(value = "进入文章新增/修改页面")
+    @RequestMapping(value = "/article/input",method = RequestMethod.GET)
+    public String input(){ return "backstage/articleInput"; }
+
+
+    public String articleAdd(){
+        try {
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
     }
 }
