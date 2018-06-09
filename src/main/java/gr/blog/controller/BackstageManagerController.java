@@ -36,11 +36,12 @@ public class BackstageManagerController {
     @RequestMapping(value = "/article/input",method = RequestMethod.GET)
     public String input(){ return "backstage/articleInput"; }
 
-    @ApiOperation("后台管理-文章新增/修改")
+    @ApiOperation("后台管理-文章新增")
     @RequestMapping(value = {"/article/add"}, method = RequestMethod.POST)
     public String articleAdd(@ModelAttribute Article article){
         //System.out.println(article.toString());
-        articleService.addRecord(article);
+        int changedCount = articleService.addRecord(article);
+        //System.out.println("新增" + changedCount + "条记录");
         return "redirect:/back/article";
     }
 }

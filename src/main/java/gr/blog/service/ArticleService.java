@@ -20,5 +20,5 @@ public interface ArticleService {
      * 新增一条记录
      * @param article
      */
-    void addRecord(Article article);
+    int addRecord(Article article);
 }

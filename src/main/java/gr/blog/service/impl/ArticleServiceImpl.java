@@ -31,7 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void addRecord(Article article) {
-        articleMapper.insertSelective(article);
+    public int addRecord(Article article) {
+        return articleMapper.insertSelective(article);
     }
 }
