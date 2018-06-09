@@ -39,7 +39,7 @@
                                 <header>
                                     <img th:src="${path}+'/img/1.jpg'" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta" th:text= "${#dates.format(art.datePublish, 'yyyy-MM-dd')}">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.content}">
@@ -55,7 +55,7 @@
                                 <header>
                                     <img th:src="${path}+'/img/2.jpg'" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta"  th:text= "${#dates.format(art.datePublish, 'yyyy-MM-dd')}">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.content}">
@@ -74,7 +74,7 @@
                                     <header>
                                     <img th:src="${path}+'/img/3.jpg'" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta" th:text= "${#dates.format(art.datePublish, 'yyyy-MM-dd')}">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.content}">
@@ -90,7 +90,7 @@
                                 <header>
                                     <img th:src="${path}+'/img/4.jpg'" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta" th:text= "${#dates.format(art.datePublish, 'yyyy-MM-dd')}">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.content}">

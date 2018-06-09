@@ -2,6 +2,7 @@ package gr.blog.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import gr.blog.exception.FontException;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,17 @@ public class ArticleController {
      * @return
      */
     @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
-    public String list(ModelMap model){
-        PageHelper.startPage(1, 4);//分页默认是每页4个元素
-        List<Article> articleList = articleService.findArticleList();
-        PageInfo<Article> info = new PageInfo<Article>(articleList);
-        model.addAttribute("page", info);
-        model.addAttribute("articleList", articleList);
+    public String list(ModelMap model) throws FontException {
+        //System.out.println("test");
+        try {
+            PageHelper.startPage(1, 4);//分页默认是每页4个元素
+            List<Article> articleList = articleService.findArticleList();
+            PageInfo<Article> info = new PageInfo<Article>(articleList);
+            model.addAttribute("page", info);
+            model.addAttribute("articleList", articleList);
+        } catch (Exception e) {
+            throw new FontException(e.getMessage());
+        }
         return "index";
     }
 
@@ -41,12 +47,18 @@ public class ArticleController {
      * @return
      */
     @RequestMapping(value = {"/page/{pageNum}"}, method = RequestMethod.GET)
-    public String page(ModelMap model, @PathVariable("pageNum") int pageNum){
-        PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
-        List<Article> articleList = articleService.findArticleList();
-        PageInfo<Article> info = new PageInfo<Article>(articleList);
-        model.addAttribute("page", info);
-        model.addAttribute("articleList", articleList);
+    public String page(ModelMap model, @PathVariable("pageNum") int pageNum) throws FontException {
+        //throw new FontException();
+        try {
+            PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
+            List<Article> articleList = articleService.findArticleList();
+            PageInfo<Article> info = new PageInfo<Article>(articleList);
+            model.addAttribute("page", info);
+            model.addAttribute("articleList", articleList);
+        } catch (Exception e) {
+            System.out.println("test");
+            throw new FontException(e.getMessage());
+        }
         return "index";
     }
 
