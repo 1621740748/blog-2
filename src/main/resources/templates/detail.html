@@ -43,9 +43,9 @@
                         <div class="body">
                             <h1 th:text="${article.title}"></h1>
                             <div class="meta">
-                                <i class="fa fa-user"></i><span th:text="${article.authorId}"></span><i class="fa fa-calendar"></i><span th:text="${#dates.format(article.datePublish, 'yyyy-MM-dd')}"></span><i class="fa fa-comments"></i><span class="data"><a href="#comments">3 条评论</a></span>
+                                <i class="fa fa-user"></i><span th:text="${article.authorId}"></span><i class="fa fa-calendar"></i><span th:text="${article.datePublish != null}?${#dates.format(article.datePublish, 'yyyy-MM-dd')}:'null'"></span><i class="fa fa-comments"></i><span class="data"><a href="#comments">3 条评论</a></span>
                             </div>
-                            <p th:text="${article.content}">文章主体</p>
+                            <p th:utext="${article.content}">文章主体</p>
                         </div>
                     </article>
 

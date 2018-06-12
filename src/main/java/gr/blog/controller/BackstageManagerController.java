@@ -2,10 +2,14 @@ package gr.blog.controller;
 
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
+import gr.blog.utils.ImageUploadUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 后台管理模块
@@ -43,5 +47,18 @@ public class BackstageManagerController {
         int changedCount = articleService.addRecord(article);
         //System.out.println("新增" + changedCount + "条记录");
         return "redirect:/back/article";
+    }
+
+    @ApiOperation("ckeditor编辑器文件上传处理")
+    @RequestMapping(value = "/image/fileUpload",method = RequestMethod.POST)
+    @ResponseBody
+    public String fileUpload(HttpServletRequest request, HttpServletResponse response){
+        String path = "/upload";
+        try {
+            ImageUploadUtil.ckeditor(request, response, path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

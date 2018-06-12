@@ -42,8 +42,8 @@
                                     <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
-                                <div class="body" th:text="${art.content}">
-                                     文章内容
+                                <div class="body" th:text="${art.description}">
+                                     文章简介
                                 </div>
                                 <div class="clearfix">
                                     <a th:href="${path}+'/detail/'+${art.id}" class="btn btn-clean-one">Read more</a>
@@ -58,8 +58,8 @@
                                     <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
-                                <div class="body" th:text="${art.content}">
-                                    文章内容
+                                <div class="body" th:text="${art.description}">
+                                    文章简介
                                 </div>
                                 <div class="clearfix">
                                     <a th:href="${path}+'/detail/'+${art.id}" class="btn btn-clean-one">Read more</a>
@@ -71,14 +71,14 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6" th:each="art,status:${articleList}" th:if="${status.index} == 2">
                             <article class="blog-teaser">
-                                    <header>
+                                <header>
                                     <img th:src="${path}+'/img/3.jpg'" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
                                     <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
-                                <div class="body" th:text="${art.content}">
-                                    文章内容
+                                <div class="body" th:text="${art.description}">
+                                    文章简介
                                 </div>
                                 <div class="clearfix">
                                     <a th:href="${path}+'/detail/'+${art.id}" class="btn btn-clean-one">Read more</a>
@@ -93,8 +93,8 @@
                                     <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
                                     <hr></hr>
                                 </header>
-                                <div class="body" th:text="${art.content}">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, sit. Doloribus dolores neque eos. Velit eveniet, necessitatibus aut sit tenetur perferendis! Commodi pariatur dignissimos, quis sequi odit iusto cumque quod!
+                                <div class="body" th:text="${art.description}">
+                                    文章简介
                                 </div>
                                 <div class="clearfix">
                                     <a th:href="${path}+'/detail/'+${art.id}" class="btn btn-clean-one">Read more</a>
