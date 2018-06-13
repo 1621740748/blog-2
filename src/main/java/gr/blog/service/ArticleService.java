@@ -21,4 +21,11 @@ public interface ArticleService {
      * @param article
      */
     int addRecord(Article article);
+
+    /**
+     * 更新一条记录
+     * @param article
+     */
+    int updateRecord(Article article);
 }
+

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,6 @@ public class ArticleController {
      */
     @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String list(ModelMap model) throws FontException {
-        //System.out.println("test");
         try {
             PageHelper.startPage(1, 4);//分页默认是每页4个元素
             List<Article> articleList = articleService.findArticleList();
@@ -35,6 +35,7 @@ public class ArticleController {
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new FontException(e.getMessage());
         }
         return "index";
@@ -48,11 +49,10 @@ public class ArticleController {
      */
     @RequestMapping(value = {"/page/{pageNum}"}, method = RequestMethod.GET)
     public String page(ModelMap model, @PathVariable("pageNum") int pageNum) throws FontException {
-        //throw new FontException();
         try {
             PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
             List<Article> articleList = articleService.findArticleList();
-            PageInfo<Article> info = new PageInfo<Article>(articleList);
+            PageInfo<Article> info = new PageInfo(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
         } catch (Exception e) {

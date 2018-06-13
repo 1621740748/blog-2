@@ -24,8 +24,10 @@
     content
   </sql>
 
+  <cache eviction="LRU" flushInterval="5000" size="10000"/>
+
   <!-- 分页查询 -->
-  <select id="getAllArticle" resultMap="ResultMapWithBLOBs">
+  <select id="getAllArticle" resultMap="ResultMapWithBLOBs" useCache="true">
     select
     <include refid="Base_Column_List" />
     ,

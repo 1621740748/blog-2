@@ -5,7 +5,9 @@ import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "articleService")
@@ -16,12 +18,24 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findArticleList() {
-
-        return articleMapper.getAllArticle();
+        //下边是证明mybatis二级缓存证明，在声明周期内两次查询，第二次要比第一次短很多时间。
+        //Date first = new Date();
+        List<Article> list = articleMapper.getAllArticle();
+        //System.out.println("second level cache query costs " + (new Date().getTime()-first.getTime()) + "ms");
+        return list;
     }
 
     @Override
+//    @Transactional
     public Article get(int id) {
+        //下边的代码用于证明mybatis的一级缓存是否生效，当不加@Transactional是不生效的，说明整合
+        //spring 后mybatis一级缓存确实失效了。
+//        Date first = new Date();
+//        articleMapper.selectByPrimaryKey(id);
+//        System.out.println("first query costs " + (new Date().getTime()-first.getTime()) + "ms");
+//        Date second = new Date();
+//        articleMapper.selectByPrimaryKey(id);
+//        System.out.println("second query costs " + (new Date().getTime()-second.getTime()) + "ms");
         return articleMapper.selectByPrimaryKey(id);
     }
 
@@ -33,5 +47,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int addRecord(Article article) {
         return articleMapper.insertSelective(article);
+    }
+
+    @Override
+    @Transactional
+    public int updateRecord(Article article) {
+        return 0;
     }
 }

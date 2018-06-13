@@ -49,6 +49,11 @@ public class BackstageManagerController {
         return "redirect:/back/article";
     }
 
+    @RequestMapping(value = {"/article/update"}, method = RequestMethod.GET)
+    public String updateArticle(){
+        return "";
+    }
+
     @ApiOperation("ckeditor编辑器文件上传处理")
     @RequestMapping(value = "/image/fileUpload",method = RequestMethod.POST)
     @ResponseBody

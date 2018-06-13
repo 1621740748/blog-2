@@ -2,6 +2,12 @@ server:
   port: 80
   tomcat:
       uri-encoding: utf-8
+
+logging:
+    file: mylog.log
+    level:
+        gr.blog.mapper: info
+
 spring:
     http:
         encoding:
@@ -32,8 +38,13 @@ spring:
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
 mybatis:
+  #Mapper.xml所在的位置
   mapper-locations: classpath:mapping/*.xml
+  #entity扫描的包名
   type-aliases-package: gr.blog.model
+  #开启MyBatis的二级缓存
+  configuration:
+      cache-enabled: true
 
 #pagehelper分页插件
 pagehelper:
