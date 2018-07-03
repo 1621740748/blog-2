@@ -13,7 +13,7 @@
   <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin"></meta>
   <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png"></meta>
   <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular."></meta>
-  <title>Vali Admin - Free Bootstrap 4 Admin Template</title>
+  <title>新增文章</title>
   <meta charset="utf-8"></meta>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
@@ -184,7 +184,11 @@
     <!-- import ckeditor4 -->
     <script th:src="${path} + '/ckeditor/ckeditor.js'"></script>
     <script>
-        CKEDITOR.replace("content");
+        CKEDITOR.replace("content",
+                        {
+                            filebrowserUploadUrl : '/back/image/fileUpload',
+                            filebrowserImageUploadUrl : '/back/image/fileUpload'
+                        });
     </script>
     <!-- Essential javascripts for application to work-->
     <script th:src="${path}+'/js/jquery-3.2.1.min.js'"></script>

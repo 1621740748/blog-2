@@ -58,7 +58,7 @@ public class BackstageManagerController {
     @RequestMapping(value = "/image/fileUpload",method = RequestMethod.POST)
     @ResponseBody
     public String fileUpload(HttpServletRequest request, HttpServletResponse response){
-        String path = "/upload";
+        String path = "upload";
         try {
             ImageUploadUtil.ckeditor(request, response, path);
         } catch (Exception e) {

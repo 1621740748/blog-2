@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -55,8 +56,9 @@ public class ArticleController {
             PageInfo<Article> info = new PageInfo(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
+            //int a = 1/0;
         } catch (Exception e) {
-            System.out.println("test");
+            //System.out.println("test");
             throw new FontException(e.getMessage());
         }
         return "index";
@@ -71,5 +73,18 @@ public class ArticleController {
         articleService.addCkickCount(id);//增加一个点击量
         model.addAttribute("article", article);
         return "detail";
+    }
+
+    @RequestMapping("ckinput")
+    public String ckeditorTestInput() {
+
+        return "testForm";
+    }
+
+    @RequestMapping("formTest")
+    public String ckeditorTest(HttpServletRequest request) {
+
+        //request
+        return "";
     }
 }

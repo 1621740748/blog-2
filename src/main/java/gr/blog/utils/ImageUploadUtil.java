@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ImageUploadUtil {
 
@@ -36,15 +33,20 @@ public class ImageUploadUtil {
      */
     public static void ckeditor(HttpServletRequest request, HttpServletResponse response, String path) throws IOException {
         String fileName = upload(request, path);
+        System.out.println(request.getContextPath());
         String imageContextPath = request.getContextPath() + "/" + path + "/" + fileName;
-        response.setContentType("text/html:charset= UTF-8");
+        response.setContentType("text/html;charset= UTF-8");
         String callback = request.getParameter("CKEditorFuncNum");
-        PrintWriter out = response.getWriter();
+        PrintWriter out = new PrintWriter(response.getOutputStream());
         out.println("<script type=\"text/javascript\">");
         out.println("window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" +imageContextPath + "','')");
         out.println("</script>");
         out.flush();
         out.close();
+//        Enumeration<String> enums = request.getParameterNames();
+//        while(enums.hasMoreElements()){
+//            System.out.println("param name is " + enums.nextElement());
+//        }
     }
 
     /**
@@ -75,14 +77,14 @@ public class ImageUploadUtil {
                             continue;
                         }
                         String realPath = request.getServletContext().getRealPath(path);
-                        System.out.println(realPath);
+                        //System.out.println(realPath);
                         File realPathDirectory = new File(realPath);
                         if (!realPathDirectory.exists()){
                             realPathDirectory.mkdirs();
                         }
                         fileName = DateUtil.format(new Date(), DateUtil.DATE_FORMAT_1) + suffix;
                         File uploadFile = new File(realPathDirectory + "/" + fileName);
-                        System.out.println(uploadFile);
+                        //System.out.println(uploadFile);
                         file.transferTo(uploadFile);
                     }
                 }
