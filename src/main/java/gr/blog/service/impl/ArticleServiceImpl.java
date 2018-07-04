@@ -1,5 +1,6 @@
 package gr.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import gr.blog.mapper.ArticleMapper;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 @Service(value = "articleService")
@@ -17,9 +17,10 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Override
-    public List<Article> findArticleList() {
+    public List<Article> findArticleList(int pageNum, int pageSize) {
         //下边是证明mybatis二级缓存证明，在声明周期内两次查询，第二次要比第一次短很多时间。
         //Date first = new Date();
+        PageHelper.startPage(pageNum, pageSize);
         List<Article> list = articleMapper.getAllArticle();
         //System.out.println("second level cache query costs " + (new Date().getTime()-first.getTime()) + "ms");
         return list;
@@ -53,5 +54,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public int updateRecord(Article article) {
         return 0;
+    }
+
+    @Override
+    public int getCount() {
+        return articleMapper.getCount();
     }
 }

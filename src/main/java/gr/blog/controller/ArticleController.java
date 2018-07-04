@@ -1,6 +1,5 @@
 package gr.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import gr.blog.exception.FontException;
 import gr.blog.model.Article;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,8 +27,8 @@ public class ArticleController {
     @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String list(ModelMap model) throws FontException {
         try {
-            PageHelper.startPage(1, 4);//分页默认是每页4个元素
-            List<Article> articleList = articleService.findArticleList();
+            //PageHelper.startPage(1, 4);//分页默认是每页4个元素
+            List<Article> articleList = articleService.findArticleList(1, 4);
             PageInfo<Article> info = new PageInfo<Article>(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
@@ -49,10 +46,10 @@ public class ArticleController {
      * @return
      */
     @RequestMapping(value = {"/page/{pageNum}"}, method = RequestMethod.GET)
-    public String page(ModelMap model, @PathVariable("pageNum") int pageNum) throws FontException {
+    public String page(ModelMap model, @PathVariable(name = "pageNum") int pageNum) throws FontException {
         try {
-            PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
-            List<Article> articleList = articleService.findArticleList();
+            //PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
+            List<Article> articleList = articleService.findArticleList(pageNum, 4);
             PageInfo<Article> info = new PageInfo(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
@@ -75,16 +72,4 @@ public class ArticleController {
         return "detail";
     }
 
-    @RequestMapping("ckinput")
-    public String ckeditorTestInput() {
-
-        return "testForm";
-    }
-
-    @RequestMapping("formTest")
-    public String ckeditorTest(HttpServletRequest request) {
-
-        //request
-        return "";
-    }
 }

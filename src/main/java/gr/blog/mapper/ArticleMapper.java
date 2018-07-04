@@ -3,6 +3,7 @@ package gr.blog.mapper;
 import gr.blog.model.Article;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -22,4 +23,6 @@ public interface ArticleMapper {
     List<Article> getAllArticle();
 
     void addCkickCount(int id);
+
+    int getCount();
 }

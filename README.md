@@ -24,8 +24,25 @@ gr.blog.exception.FontException
  ps -ef | grep java
  kill 进程号
  nohup java -jar blog.jar &
- tail -500f nohub.out
+ tail -500f nohup.out
 ```
 记录一下部署到云服务器遇到了乱码问题，原因是linux首次安装mysql字符设置问题，需要修改相关配置（csdn中有记录）。
 ## 6 缓存问题
-### mybatis+spring 默认一级缓存失效问题，加上事务才能生效
+### mybatis+spring 默认一级缓存失效，加上事务才能生效
+## 7 ckeditor插件使用
+### 文章"新建"过程中，图片上传功能
+默认没有图片上传功能，js初始化配置：
+```
+<script>
+        CKEDITOR.replace("content",//textarea的id
+                        {
+                            filebrowserUploadUrl : '/back/image/fileUpload',
+                            filebrowserImageUploadUrl : '/back/image/fileUpload'
+                        });
+</script>
+```
+config.js配置文件修改设置,修改图片显示区提示英文字母：
+```
+config.image_previewText = '图片最大宽度最好设置为760px';
+```
+使用时调用回调函数显示图片预览失败，发现后台查找"CKEditorFuncNum"失败，最后替换了CKeditor版本解决掉这个问题，具体原因尚不清楚，修改后的版本为3.0

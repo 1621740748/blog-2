@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<Article> findArticleList();
+    List<Article> findArticleList(int pageNum, int pageSize);
 
     Article get(int id);
 
@@ -27,5 +27,11 @@ public interface ArticleService {
      * @param article
      */
     int updateRecord(Article article);
+
+    /**
+     * 查询文章总数
+     * @return
+     */
+    int getCount();
 }
 

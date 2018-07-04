@@ -10,7 +10,7 @@ public class Article implements Serializable {
 
     private String description;
 
-    private Integer ckickCount;
+    private Integer clickCount;
 
     private String isRecommend;
 
@@ -48,14 +48,6 @@ public class Article implements Serializable {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
-    }
-
-    public Integer getCkickCount() {
-        return ckickCount;
-    }
-
-    public void setCkickCount(Integer ckickCount) {
-        this.ckickCount = ckickCount;
     }
 
     public String getIsRecommend() {
@@ -120,7 +112,7 @@ public class Article implements Serializable {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", ckickCount=" + ckickCount +
+                ", clickCount=" + clickCount +
                 ", isRecommend='" + isRecommend + '\'' +
                 ", datePublish=" + datePublish +
                 ", authorId=" + authorId +

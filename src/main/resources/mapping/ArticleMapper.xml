@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="ckick_count" property="ckickCount" jdbcType="INTEGER" />
+    <result column="click_count" property="clickCount" jdbcType="INTEGER" />
     <result column="is_recommend" property="isRecommend" jdbcType="VARCHAR" />
     <result column="date_publish" property="datePublish" jdbcType="DATE" />
     <result column="author_id" property="authorId" jdbcType="INTEGER" />
@@ -35,13 +35,13 @@
     from blog_article
   </select>
 
-  <!-- 增加点击量 -->
-  <update id="addCkickCount" parameterType="java.lang.Integer">
-      update blog_article set ckick_count = ckick_count+1 where id = #{id,jdbcType=INTEGER}
-  </update>
+  <!-- 查询总数 -->
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*) count from blog_article
+  </select>
 
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -53,14 +53,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="gr.blog.model.Article" >
-    insert into blog_article (id, title, description, 
-      ckick_count, is_recommend, date_publish, 
-      author_id, category_id, tag_id, 
-      content)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{ckickCount,jdbcType=INTEGER}, #{isRecommend,jdbcType=VARCHAR}, #{datePublish,jdbcType=DATE}, 
-      #{authorId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARCHAR})
+    insert into blog_article (id, title, description,
+    ckick_count, is_recommend, date_publish,
+    author_id, category_id, tag_id,
+    content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+    #{ckickCount,jdbcType=INTEGER}, #{isRecommend,jdbcType=VARCHAR}, #{datePublish,jdbcType=DATE},
+    #{authorId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER},
+    #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="gr.blog.model.Article" >
     insert into blog_article
@@ -129,6 +129,12 @@
       </if>
     </trim>
   </insert>
+
+  <!-- 增加点击量 -->
+  <update id="addCkickCount" parameterType="java.lang.Integer">
+    update blog_article set click_count = click_count+1 where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="gr.blog.model.Article" >
     update blog_article
     <set >
