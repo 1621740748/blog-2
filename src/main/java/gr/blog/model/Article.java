@@ -58,6 +58,14 @@ public class Article implements Serializable {
         this.isRecommend = isRecommend == null ? null : isRecommend.trim();
     }
 
+    public Integer getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(Integer clickCount) {
+        this.clickCount = clickCount;
+    }
+
     public Date getDatePublish() {
         return datePublish;
     }

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
 import gr.blog.utils.ImageUploadUtil;
+import gr.blog.utils.StringUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 后台管理模块
@@ -31,12 +34,13 @@ public class BackstageManagerController {
         return "backstage/index";
     }
 
+    @ApiOperation(value = "后台-文章列表展示", notes = "页面点击导航栏进入文章管理，文章以表格形式展示。")
     @RequestMapping(value = "/article",method = RequestMethod.GET)
     public String articlePage(){
         return "backstage/articleList";
     }
 
-    @ApiOperation(value = "后台-文章列表展示", notes = "页面点击导航栏进入文章管理，文章以表格形式展示。")
+    @ApiOperation(value = "后台-文章列表分页", notes = "页面点击导航栏每页按多少展示的分页功能")
     //@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")//这段是对参数进行解释
     @RequestMapping(value = {"/articlePage"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -46,6 +50,9 @@ public class BackstageManagerController {
         int iDisplayStart = 0;//起始索引
         int iDisplayLength = 10;//每页显示的行数
         int count;
+        String orderColumn ="";//默认排序列
+        String orderDir = "asc";//默认排序方式为升序
+        String sSearch = "";//默认搜索内容
         List<Article> articleList;
 
         JSONArray jsonArray = JSONArray.parseArray(aoData);
@@ -58,11 +65,30 @@ public class BackstageManagerController {
                 iDisplayStart = Integer.parseInt(jsonObject.get("value").toString());
             }else if (jsonObject.get("name").equals("iDisplayLength")){
                 iDisplayLength = Integer.parseInt(jsonObject.get("value").toString());
+            }else if (jsonObject.get("name").equals("iSortCol_0")){
+                orderColumn = jsonObject.get("value").toString();
+            }else if (jsonObject.get("name").equals("sSortDir_0")){
+                orderDir = jsonObject.get("value").toString();
+            }else if (jsonObject.get("name").equals("sSearch")){
+                sSearch = jsonObject.get("value").toString();
             }
         }
-        articleList = articleService.findArticleList(iDisplayStart, iDisplayLength);
-
-        count = articleService.getCount();
+        Map<String, Object> filter = new HashMap<>();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+            if (jsonObject.get("name").equals("mDataProp_" + orderColumn)) {
+                orderColumn = jsonObject.get("value").toString();
+            }
+            if (jsonObject.get("name").toString().contains("mDataProp_")){
+                String tmp = jsonObject.get("value").toString();
+                filter.put(tmp, tmp);
+            }
+        }
+        filter.put("orderColumn", StringUtil.camel2Underline(orderColumn));
+        filter.put("orderDir", orderDir);
+        filter.put("sSearch", sSearch);
+        articleList = articleService.findArticleList((iDisplayStart/iDisplayLength + 1), iDisplayLength, filter);
+        count = articleService.getCount(filter);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("sEcho", sEcho);//前端传递的，只需获取然后原数返回即可

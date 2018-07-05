@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ArticleController {
@@ -28,7 +30,10 @@ public class ArticleController {
     public String list(ModelMap model) throws FontException {
         try {
             //PageHelper.startPage(1, 4);//分页默认是每页4个元素
-            List<Article> articleList = articleService.findArticleList(1, 4);
+            Map<String, Object> filter = new HashMap<>();
+            filter.put("orderColumn", "click_count");
+            filter.put("orderDir", "desc");
+            List<Article> articleList = articleService.findArticleList(1, 4, filter);
             PageInfo<Article> info = new PageInfo<Article>(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
@@ -49,7 +54,10 @@ public class ArticleController {
     public String page(ModelMap model, @PathVariable(name = "pageNum") int pageNum) throws FontException {
         try {
             //PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
-            List<Article> articleList = articleService.findArticleList(pageNum, 4);
+            Map<String, Object> filter = new HashMap<>();
+            filter.put("orderColumn", "click_count");
+            filter.put("orderDir", "desc");
+            List<Article> articleList = articleService.findArticleList(pageNum, 4, filter);
             PageInfo<Article> info = new PageInfo(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);

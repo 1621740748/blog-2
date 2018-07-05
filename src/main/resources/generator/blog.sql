@@ -3,7 +3,7 @@ CREATE TABLE `blog_article` (
   `title` varchar(45) COLLATE utf8_bin DEFAULT NULL COMMENT '文章标题',
   `description` varchar(45) COLLATE utf8_bin DEFAULT NULL COMMENT '文章描述',
   `content` text COLLATE utf8_bin COMMENT '文章内容)',
-  `ckick_count` int(11) DEFAULT NULL COMMENT '点击次数',
+  `click_count` int(11) DEFAULT NULL COMMENT '点击次数',
   `is_recommend` varchar(2) COLLATE utf8_bin DEFAULT NULL COMMENT '是否推荐',
   `date_publish` date DEFAULT NULL COMMENT '发布时间',
   `author_id` int(11) DEFAULT NULL COMMENT '作者',

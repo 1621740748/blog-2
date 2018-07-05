@@ -13,13 +13,16 @@
     <result column="tag_id" property="tagId" jdbcType="INTEGER" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
   </resultMap>
+
   <resultMap id="ResultMapWithBLOBs" type="gr.blog.model.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
-    id, title, description, ckick_count, is_recommend, date_publish, author_id, category_id, 
+    id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
     tag_id,photo
   </sql>
+
   <sql id="Blob_Column_List" >
     content
   </sql>
@@ -27,17 +30,87 @@
   <cache eviction="LRU" flushInterval="5000" size="10000"/>
 
   <!-- 分页查询 -->
-  <select id="getAllArticle" resultMap="ResultMapWithBLOBs" useCache="true">
+  <select id="getAllArticle" resultMap="BaseResultMap" parameterType="java.util.Map" useCache="true">
     select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from blog_article
+    <if test="sSearch != null and sSearch != ''">
+      <where>
+        <if test="id != null" >
+          id like '%${sSearch}%'
+        </if>
+        <if test="title != null" >
+          or title like '%${sSearch}%'
+        </if>
+        <if test="description != null" >
+          or description like '%${sSearch}%'
+        </if>
+        <if test="clickCount != null" >
+          or click_count like '%${sSearch}%'
+        </if>
+        <if test="isRecommend != null" >
+          or is_recommend like '%${sSearch}%'
+        </if>
+        <if test="datePublish != null" >
+          or date_publish like '%${sSearch}%'
+        </if>
+        <if test="authorId != null" >
+          or author_id like '%${sSearch}%'
+        </if>
+        <if test="categoryId != null" >
+          or category_id like '%${sSearch}%'
+        </if>
+        <if test="tagId != null" >
+          or tag_id like '%${sSearch}%'
+        </if>
+        <if test="content != null" >
+          or content like '%${sSearch}%'
+        </if>
+      </where>
+    </if>
+    <if test="orderColumn != null and orderDir != null">
+    order by ${orderColumn} ${orderDir}
+    </if>
+
   </select>
 
   <!-- 查询总数 -->
-  <select id="getCount" resultType="java.lang.Integer">
+  <select id="getCount" resultType="java.lang.Integer" parameterType="java.util.Map">
     select count(*) count from blog_article
+    <if test="sSearch != null and sSearch != ''">
+      <where>
+        <if test="id != null" >
+          id like '%${sSearch}%'
+        </if>
+        <if test="title != null" >
+          or title like '%${sSearch}%'
+        </if>
+        <if test="description != null" >
+          or description like '%${sSearch}%'
+        </if>
+        <if test="clickCount != null" >
+          or click_count like '%${sSearch}%'
+        </if>
+        <if test="isRecommend != null" >
+          or is_recommend like '%${sSearch}%'
+        </if>
+        <if test="datePublish != null" >
+          or date_publish like '%${sSearch}%'
+        </if>
+        <if test="authorId != null" >
+          or author_id like '%${sSearch}%'
+        </if>
+        <if test="categoryId != null" >
+          or category_id like '%${sSearch}%'
+        </if>
+        <if test="tagId != null" >
+          or tag_id like '%${sSearch}%'
+        </if>
+        <if test="content != null" >
+          or content like '%${sSearch}%'
+        </if>
+      </where>
+    </if>
   </select>
 
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
@@ -54,11 +127,11 @@
   </delete>
   <insert id="insert" parameterType="gr.blog.model.Article" >
     insert into blog_article (id, title, description,
-    ckick_count, is_recommend, date_publish,
+    click_count, is_recommend, date_publish,
     author_id, category_id, tag_id,
     content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-    #{ckickCount,jdbcType=INTEGER}, #{isRecommend,jdbcType=VARCHAR}, #{datePublish,jdbcType=DATE},
+    #{clickCount,jdbcType=INTEGER}, #{isRecommend,jdbcType=VARCHAR}, #{datePublish,jdbcType=DATE},
     #{authorId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER},
     #{content,jdbcType=LONGVARCHAR})
   </insert>
@@ -74,8 +147,8 @@
       <if test="description != null" >
         description,
       </if>
-      <if test="ckickCount != null" >
-        ckick_count,
+      <if test="clickCount != null" >
+        click_count,
       </if>
       <if test="isRecommend != null" >
         is_recommend,
@@ -106,8 +179,8 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="ckickCount != null" >
-        #{ckickCount,jdbcType=INTEGER},
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=INTEGER},
       </if>
       <if test="isRecommend != null" >
         #{isRecommend,jdbcType=VARCHAR},
@@ -131,7 +204,7 @@
   </insert>
 
   <!-- 增加点击量 -->
-  <update id="addCkickCount" parameterType="java.lang.Integer">
+  <update id="addClickCount" parameterType="java.lang.Integer">
     update blog_article set click_count = click_count+1 where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -144,8 +217,8 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="ckickCount != null" >
-        ckick_count = #{ckickCount,jdbcType=INTEGER},
+      <if test="clickCount != null" >
+        click_count = #{clickCount,jdbcType=INTEGER},
       </if>
       <if test="isRecommend != null" >
         is_recommend = #{isRecommend,jdbcType=VARCHAR},
@@ -172,7 +245,7 @@
     update blog_article
     set title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      ckick_count = #{ckickCount,jdbcType=INTEGER},
+      click_count = #{clickCount,jdbcType=INTEGER},
       is_recommend = #{isRecommend,jdbcType=VARCHAR},
       date_publish = #{datePublish,jdbcType=DATE},
       author_id = #{authorId,jdbcType=INTEGER},
@@ -185,7 +258,7 @@
     update blog_article
     set title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      ckick_count = #{ckickCount,jdbcType=INTEGER},
+      click_count = #{clickCount,jdbcType=INTEGER},
       is_recommend = #{isRecommend,jdbcType=VARCHAR},
       date_publish = #{datePublish,jdbcType=DATE},
       author_id = #{authorId,jdbcType=INTEGER},

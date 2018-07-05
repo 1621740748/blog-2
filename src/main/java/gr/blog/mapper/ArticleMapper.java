@@ -20,9 +20,9 @@ public interface ArticleMapper {
 
     int updateByPrimaryKey(Article record);
 
-    List<Article> getAllArticle();
+    List<Article> getAllArticle(Map<String, Object> filter);
 
-    void addCkickCount(int id);
+    void addClickCount(int id);
 
-    int getCount();
+    int getCount(Map<String, Object> filter);
 }

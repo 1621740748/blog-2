@@ -3,10 +3,11 @@ package gr.blog.service;
 import gr.blog.model.Article;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ArticleService {
 
-    List<Article> findArticleList(int pageNum, int pageSize);
+    List<Article> findArticleList(int pageNum, int pageSize, Map<String, Object> filter);
 
     Article get(int id);
 
@@ -31,7 +32,8 @@ public interface ArticleService {
     /**
      * 查询文章总数
      * @return
+     * @param filter
      */
-    int getCount();
+    int getCount(Map<String, Object> filter);
 }
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service(value = "articleService")
 public class ArticleServiceImpl implements ArticleService {
@@ -17,11 +18,11 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Override
-    public List<Article> findArticleList(int pageNum, int pageSize) {
+    public List<Article> findArticleList(int pageNum, int pageSize, Map<String, Object> filter) {
         //下边是证明mybatis二级缓存证明，在声明周期内两次查询，第二次要比第一次短很多时间。
         //Date first = new Date();
         PageHelper.startPage(pageNum, pageSize);
-        List<Article> list = articleMapper.getAllArticle();
+        List<Article> list = articleMapper.getAllArticle(filter);
         //System.out.println("second level cache query costs " + (new Date().getTime()-first.getTime()) + "ms");
         return list;
     }
@@ -42,7 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void addCkickCount(int id) {
-        articleMapper.addCkickCount(id);
+        articleMapper.addClickCount(id);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int getCount() {
-        return articleMapper.getCount();
+    public int getCount(Map<String, Object> filter) {
+        return articleMapper.getCount(filter);
     }
 }
