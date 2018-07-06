@@ -48,9 +48,6 @@
         <if test="clickCount != null" >
           or click_count like '%${sSearch}%'
         </if>
-        <if test="isRecommend != null" >
-          or is_recommend like '%${sSearch}%'
-        </if>
         <if test="datePublish != null" >
           or date_publish like '%${sSearch}%'
         </if>
@@ -90,9 +87,6 @@
         </if>
         <if test="clickCount != null" >
           or click_count like '%${sSearch}%'
-        </if>
-        <if test="isRecommend != null" >
-          or is_recommend like '%${sSearch}%'
         </if>
         <if test="datePublish != null" >
           or date_publish like '%${sSearch}%'

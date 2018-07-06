@@ -9,10 +9,12 @@ import gr.blog.utils.StringUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,22 +100,26 @@ public class BackstageManagerController {
         return jsonObject.toJSONString();
     }
 
-    @ApiOperation(value = "进入文章新增/修改页面")
+    @ApiOperation(value = "进入文章（新增/修改）页面")
     @RequestMapping(value = "/article/input",method = RequestMethod.GET)
-    public String input(){ return "backstage/articleInput"; }
-
-    @ApiOperation("后台管理-文章新增")
-    @RequestMapping(value = {"/article/add"}, method = RequestMethod.POST)
-    public String articleAdd(@ModelAttribute Article article){
-        //System.out.println(article.toString());
-        int changedCount = articleService.addRecord(article);
-        //System.out.println("新增" + changedCount + "条记录");
-        return "redirect:/back/article";
+    public String input(ModelMap model, Integer id){
+        if (id != null){//不为null说明 为修改操作
+            Article article = articleService.get(id);
+            model.addAttribute("article", article);
+        }
+        return "backstage/articleInput";
     }
 
-    @RequestMapping(value = {"/article/update"}, method = RequestMethod.GET)
-    public String updateArticle(){
-        return "";
+    @ApiOperation("后台管理-文章新增/修改")
+    @RequestMapping(value = {"/article/add", "/article/update"}, method = RequestMethod.POST)
+    public String articleAdd(@ModelAttribute Article article){
+        //System.out.println(article.toString());
+        if(article.getId() == null){//新增
+            articleService.addRecord(article);
+        }else{//更新记录
+            articleService.updateRecord(article);
+        }
+        return "redirect:/back/article";
     }
 
     @ApiOperation("ckeditor编辑器文件上传处理")

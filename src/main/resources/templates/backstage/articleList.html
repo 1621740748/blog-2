@@ -13,10 +13,12 @@
     <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin"></meta>
     <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png"></meta>
     <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular."></meta>
-    <title>Data Table - Vali Admin</title>
+    <title>文章列表</title>
     <meta charset="utf-8"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <!-- bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="${path}+'/css/bootstrap.min.css'"></link>
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" th:href="${path}+'/css/main.css'"></link>
     <!-- Font-icon css-->
@@ -88,8 +90,8 @@
     <aside class="app-sidebar">
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" th:src="${path}+'/img/avatar.png'" alt="User Image"></img>
         <div>
-          <p class="app-sidebar__user-name">John Doe</p>
-          <p class="app-sidebar__user-designation">Frontend Developer</p>
+          <p class="app-sidebar__user-name">蒋中英</p>
+          <p class="app-sidebar__user-designation">Backend Developer</p>
         </div>
       </div>
       <ul class="app-menu">
@@ -148,7 +150,7 @@
         <div class="col-md-12">
           <div class="tile">
               <div class="tile-body">
-                  <table class="table table-hover table-bordered" id="sampleTable">
+                  <table class="table table-hover table-bordered" id="sampleTable" style="white-space:nowrap">
                       <thead>
                           <tr>
                               <th>序列</th>
@@ -180,8 +182,9 @@
   <script type="text/javascript" th:inline="javascript">
       /*<![CDATA[*/
         var path = [[${path}]];
-        $('#sampleTable').DataTable({
+        var table = $('#sampleTable').DataTable({
             "sDom" : '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-6 crudBtn"><"col-sm-12 col-md-6"p>><"clear">',
+            sScrollx : "100%",
             bServerSide : true,//开启后台分页功能
             fnServerData: retrieveData, //执行函数
             bPaginate : true,//显示分页按钮
@@ -197,7 +200,9 @@
                             var d = "0"+date.getDate();
                             return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
                          }, "sDefaultContent": ""},
-                         {"mDataProp": "isRecommend", "sDefaultContent": ""},
+                         {"mDataProp": "isRecommend", "mRender": function(data, type, full){
+                            if(data == "0"){return "否"}else if(data == "1"){return "是"}
+                         },"sDefaultContent": "", "bSortable": false},
                          {"mDataProp": "clickCount", "sDefaultContent": ""}
                         ],
             "language": {
@@ -219,6 +224,10 @@
               }
             },
         });
+      $("#sampleTable tbody").on("click", "tr", function(){
+          $(this).toggleClass("success");
+          var length = table.rows(".danger").data().length;
+      });
       /*]]>*/
 
       $("div.crudBtn").html('<button id="add" type="button" class="btn btn-default btn-success"><i class="fa fa-plus-circle"></i>增加</button >'
@@ -230,7 +239,13 @@
       });
 
       $("#update").bind("click",function(){
-          window.location.href = path + "/back/article/update";
+          var data = table.rows(".success").data();
+          if(data.length >1){
+            alert("最多选择一行，请重新选择");
+            return;
+          }
+          var titleId = data[0].id;
+          window.location.href = path + "/back/article/input?id="+titleId;
       });
 
       function retrieveData(sSource, aoData, fnCallback) {
@@ -245,7 +260,7 @@
                     fnCallback(result);//把返回的数据传给这个方法就可以了,datatable会自动绑定数据的
               },
               error: function(msg){
-
+                    alert("表格信息获取失败！！");
               }
           });
       }

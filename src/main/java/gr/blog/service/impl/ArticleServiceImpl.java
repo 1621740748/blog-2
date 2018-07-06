@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -48,13 +49,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public int addRecord(Article article) {
+        article.setDatePublish(new Date());
         return articleMapper.insertSelective(article);
     }
 
     @Override
     @Transactional
     public int updateRecord(Article article) {
-        return 0;
+        return articleMapper.updateByPrimaryKeySelective(article);
     }
 
     @Override
