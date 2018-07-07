@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,6 +119,16 @@ public class BackstageManagerController {
             articleService.updateRecord(article);
         }
         return "redirect:/back/article";
+    }
+
+    @ApiOperation("后台管理-文章删除")
+    @RequestMapping(value = {"/article/delete"}, method = RequestMethod.POST)
+    @ResponseBody
+    public String articleDelete(int [] ids){
+        String result = articleService.deleteBatch(ids);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result",result);
+        return jsonObject.toJSONString();
     }
 
     @ApiOperation("ckeditor编辑器文件上传处理")

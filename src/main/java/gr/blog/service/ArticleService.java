@@ -35,5 +35,12 @@ public interface ArticleService {
      * @param filter
      */
     int getCount(Map<String, Object> filter);
+
+    /**
+     * 批量删除元素
+     * @param ids 文章id列表
+     * @return 1 删除成功， 0 删除失败
+     */
+    String deleteBatch(int[] ids);
 }
 

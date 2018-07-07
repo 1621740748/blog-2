@@ -119,6 +119,14 @@
     delete from blog_article
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteBatch" parameterType="int[]" >
+    delete from blog_article
+    where id in
+    <foreach collection="array" item="ids" index="no" open="("
+             separator="," close=")">
+      ${ids}
+    </foreach>
+  </delete>
   <insert id="insert" parameterType="gr.blog.model.Article" >
     insert into blog_article (id, title, description,
     click_count, is_recommend, date_publish,

@@ -174,7 +174,7 @@
     <script th:src="${path}+'/js/main.js'"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script th:src="${path}+'/js/plugins/pace.min.js'"></script>
-    <!-- Page specific javascripts-->
+    <script th:src="${path}+'/layer/layer.js'"></script>
     <!-- Data table plugin-->
     <script type="text/javascript" th:src="${path}+'/js/plugins/jquery.dataTables.min.js'"></script>
     <script type="text/javascript" th:src="${path}+'/js/plugins/dataTables.bootstrap.min.js'"></script>
@@ -226,9 +226,8 @@
         });
       $("#sampleTable tbody").on("click", "tr", function(){
           $(this).toggleClass("success");
-          var length = table.rows(".danger").data().length;
+          //var length = table.rows(".danger").data().length;
       });
-      /*]]>*/
 
       $("div.crudBtn").html('<button id="add" type="button" class="btn btn-default btn-success"><i class="fa fa-plus-circle"></i>增加</button >'
                           + ' <button id="update" type="button" class="btn btn-default btn-info"><i class="fa fa-pencil-square-o"></i>修改</button >'
@@ -241,11 +240,45 @@
       $("#update").bind("click",function(){
           var data = table.rows(".success").data();
           if(data.length >1){
-            alert("最多选择一行，请重新选择");
+            layer.msg("最多选择一行，请重新选择");
             return;
+          }
+          if(data.length == 0){
+            layer.msg("请选择指定元素进行修改");
           }
           var titleId = data[0].id;
           window.location.href = path + "/back/article/input?id="+titleId;
+      });
+
+      $("#delete").bind("click", function(){
+            var result = layer.confirm('确认删除?', {icon: 3, title:'删除记录'}, function(index){
+              //do something
+              var data = table.rows(".success").data();//选中的DataTable对象数组
+              var buf = [];
+              if(data.length == 0){
+                layer.close(index);
+                layer.msg("至少选择一行");
+                return;
+              }
+              for(var i = 0; i < data.length; i++){
+                  buf.push(data[i].id);
+              }
+              $.ajax({
+                  url:path + "/back/article/delete",
+                  type:"post",
+                  data:{"ids": buf.toString()},
+                  dataType:"json",
+                  success:function(result){
+                      if(result.result == 1){//删除成功
+                          layer.msg("删除成功");
+                          location.reload();
+                      }else if(result.result == 0){//删除失败
+                          layer.close(index);
+                          layer.msg("删除失败");
+                      }
+                  }
+              });
+            });
       });
 
       function retrieveData(sSource, aoData, fnCallback) {
@@ -264,5 +297,6 @@
               }
           });
       }
+      /*]]>*/
     </script>
 </html>
