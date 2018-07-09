@@ -18,6 +18,10 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
 
+  <resultMap id="ResultMapWithCategory" type="gr.blog.model.Article" extends="BaseResultMap" >
+    <association property="blogCategory" resultMap="gr.blog.mapper.BlogCategoryMapper.BaseResultMap"></association>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
     tag_id,photo
@@ -30,10 +34,11 @@
   <cache eviction="LRU" flushInterval="5000" size="10000"/>
 
   <!-- 分页查询 -->
-  <select id="getAllArticle" resultMap="BaseResultMap" parameterType="java.util.Map" useCache="true">
+  <select id="getAllArticle" resultMap="ResultMapWithCategory" parameterType="java.util.Map" useCache="true">
     select
-    <include refid="Base_Column_List" />
-    from blog_article
+    t1.id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
+    tag_id,photo, category_name
+    from blog_article t1 left join blog_category t2 on t2.id = t1.category_id
     <if test="sSearch != null and sSearch != ''">
       <where>
         <if test="id != null" >
@@ -49,7 +54,7 @@
           or click_count like '%${sSearch}%'
         </if>
         <if test="datePublish != null" >
-          or date_publish like '%${sSearch}%'
+          or date_publish like binary '%${sSearch}%'
         </if>
         <if test="authorId != null" >
           or author_id like '%${sSearch}%'
@@ -89,7 +94,7 @@
           or click_count like '%${sSearch}%'
         </if>
         <if test="datePublish != null" >
-          or date_publish like '%${sSearch}%'
+          or date_publish like binary '%${sSearch}%'
         </if>
         <if test="authorId != null" >
           or author_id like '%${sSearch}%'
@@ -131,11 +136,11 @@
     insert into blog_article (id, title, description,
     click_count, is_recommend, date_publish,
     author_id, category_id, tag_id,
-    content)
+    content,photo)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
     #{clickCount,jdbcType=INTEGER}, #{isRecommend,jdbcType=VARCHAR}, #{datePublish,jdbcType=DATE},
     #{authorId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER},
-    #{content,jdbcType=LONGVARCHAR})
+    #{content,jdbcType=LONGVARCHAR}),#{photo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="gr.blog.model.Article" >
     insert into blog_article
@@ -170,6 +175,9 @@
       <if test="content != null" >
         content,
       </if>
+      <if test="photo != null" >
+        photo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -201,6 +209,9 @@
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

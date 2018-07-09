@@ -373,6 +373,7 @@ Elements that are used througout clean, such as Searchboxes, Blog elements, Widg
   color: #7b8690;
   float: left;
   margin-top: 19px;
+  margin-right: 40px;
 }
 
 .clean-breadcrumb a {

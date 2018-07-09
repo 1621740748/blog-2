@@ -112,7 +112,7 @@ public class BackstageManagerController {
     @ApiOperation("后台管理-文章新增/修改")
     @RequestMapping(value = {"/article/add", "/article/update"}, method = RequestMethod.POST)
     public String articleAdd(@ModelAttribute Article article){
-        //System.out.println(article.toString());
+        //System.out.println(article.getPhoto());
         if(article.getId() == null){//新增
             articleService.addRecord(article);
         }else{//更新记录

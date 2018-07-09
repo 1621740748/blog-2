@@ -26,6 +26,8 @@ public class Article implements Serializable {
 
     private  String photo;
 
+    private BlogCategory blogCategory;
+
     public Integer getId() {
         return id;
     }
@@ -112,6 +114,14 @@ public class Article implements Serializable {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public BlogCategory getBlogCategory() {
+        return blogCategory;
+    }
+
+    public void setBlogCategory(BlogCategory blogCategory) {
+        this.blogCategory = blogCategory;
     }
 
     @Override
