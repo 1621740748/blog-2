@@ -3,7 +3,9 @@ package gr.blog.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import gr.blog.model.Article;
+import gr.blog.model.BlogCategory;
 import gr.blog.service.ArticleService;
+import gr.blog.service.CategoryService;
 import gr.blog.utils.ImageUploadUtil;
 import gr.blog.utils.StringUtil;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +29,9 @@ public class BackstageManagerController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @ApiOperation("后台首页")
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -106,6 +111,8 @@ public class BackstageManagerController {
             Article article = articleService.get(id);
             model.addAttribute("article", article);
         }
+        List<BlogCategory> listCategory = categoryService.getAllCategory();
+        model.addAttribute("listCategory", listCategory);
         return "backstage/articleInput";
     }
 

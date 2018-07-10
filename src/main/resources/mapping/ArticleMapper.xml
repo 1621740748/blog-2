@@ -22,6 +22,10 @@
     <association property="blogCategory" resultMap="gr.blog.mapper.BlogCategoryMapper.BaseResultMap"></association>
   </resultMap>
 
+  <resultMap id="ResultMapWithCategoryAndBLOBs" type="gr.blog.model.Article" extends="ResultMapWithBLOBs" >
+    <association property="blogCategory" resultMap="gr.blog.mapper.BlogCategoryMapper.BaseResultMap"></association>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
     tag_id,photo
@@ -112,13 +116,13 @@
     </if>
   </select>
 
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithCategoryAndBLOBs" parameterType="java.lang.Integer" >
     select
-    <include refid="Base_Column_List" />
-    ,
+    t1.id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
+    tag_id,photo, category_name,
     <include refid="Blob_Column_List" />
-    from blog_article
-    where id = #{id,jdbcType=INTEGER}
+    from blog_article t1, blog_category t2
+    where t1.id = #{id,jdbcType=INTEGER} and t1.category_id = t2.id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_article
