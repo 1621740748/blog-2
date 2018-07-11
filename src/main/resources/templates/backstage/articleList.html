@@ -26,7 +26,7 @@
   </head>
   <body class="app sidebar-mini rtl">
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="index.html">Jiang</a>
+    <header class="app-header"><a class="app-header__logo" href="/back">Jiang</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
@@ -190,7 +190,7 @@
             sAjaxSource : path + "/back/articlePage",//请求url
             aoColumns : [{"mDataProp": "id", "sDefaultContent": ""},
                          {"mDataProp": "title", "sDefaultContent": ""},
-                         {"mDataProp": "blogCategory.categoryName", "sDefaultContent": ""},
+                         {"mDataProp": "blogCategory.categoryName", "sDefaultContent": "","bSortable": false},
                          {"mDataProp": "authorId", "sDefaultContent": ""},
                          {"mDataProp": "datePublish", "mRender": function(data, type, full){
                             var date = new Date(data);
@@ -250,15 +250,14 @@
       });
 
       $("#delete").bind("click", function(){
-            var result = layer.confirm('确认删除?', {icon: 3, title:'删除记录'}, function(index){
-              //do something
-              var data = table.rows(".success").data();//选中的DataTable对象数组
-              var buf = [];
-              if(data.length == 0){
-                layer.close(index);
+            var data = table.rows(".success").data();//选中的DataTable对象数组
+            if(data.length == 0){
                 layer.msg("至少选择一行");
                 return;
               }
+            var result = layer.confirm('确认删除?', {icon: 3, title:'删除记录'}, function(index){
+              //do something
+              var buf = [];
               for(var i = 0; i < data.length; i++){
                   buf.push(data[i].id);
               }

@@ -56,6 +56,7 @@ public class BackstageManagerController {
         int iDisplayStart = 0;//起始索引
         int iDisplayLength = 10;//每页显示的行数
         int count;
+
         String orderColumn ="";//默认排序列
         String orderDir = "asc";//默认排序方式为升序
         String sSearch = "";//默认搜索内容

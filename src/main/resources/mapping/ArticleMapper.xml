@@ -46,7 +46,7 @@
     <if test="sSearch != null and sSearch != ''">
       <where>
         <if test="id != null" >
-          id like '%${sSearch}%'
+          t1.id like '%${sSearch}%'
         </if>
         <if test="title != null" >
           or title like '%${sSearch}%'

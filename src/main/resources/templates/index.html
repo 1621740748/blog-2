@@ -10,20 +10,11 @@
 
     <!-- Bootstrap styles -->
     <link rel="stylesheet" th:href="${path}+'/css/bootstrap.min.css'"></link>
-
     <!-- Font-Awesome -->
     <link rel="stylesheet" th:href="${path}+'/css/font-awesome/css/font-awesome.min.css'"></link>
-
-    <!-- Google Webfonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic' rel='stylesheet' type='text/css'></link>
-
     <!-- Styles -->
-    <link rel="stylesheet" th:href="${path}+'/css/style.css'" id="theme-styles'"></link>
-
-    <!--[if lt IE 9]>
-    <script th:src="${path}+'/js/vendor/google/html5-3.6-respond-1.1.0.min.js'"></script>
-    <![endif]-->
-
+    <link rel="stylesheet" th:href="${path}+'/css/style.css'"></link>
+    <link rel="stylesheet" th:href="${path}+'/css/pagination.css'"></link>
 
 </head>
 <body>
@@ -39,7 +30,7 @@
                                 <header>
                                     <img th:src="${art.photo}" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>/<span style="background-color:#343a40;" class="badge" th:text="${art.blogCategory.categoryName}">Primary</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.description}">
@@ -55,7 +46,7 @@
                                 <header>
                                     <img th:src="${art.photo}" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>/<span style="background-color:#343a40;" class="badge" th:text="${art.blogCategory.categoryName}">Primary</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.description}">
@@ -74,7 +65,7 @@
                                 <header>
                                     <img th:src="${art.photo}" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>/<span style="background-color:#343a40;" class="badge" th:text="${art.blogCategory.categoryName}">Primary</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.description}">
@@ -90,7 +81,7 @@
                                 <header>
                                     <img th:src="${art.photo}" alt=""></img>
                                     <h3><a th:href="${path}+'/detail/'+${art.id}" th:text="${art.title}">标题</a></h3>
-                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>
+                                    <span class="meta" th:text= "${art.datePublish != null}?${#dates.format(art.datePublish, 'yyyy-MM-dd')}:'null'">Time</span>/<span style="background-color:#343a40;" class="badge" th:text="${art.blogCategory.categoryName}">Primary</span>
                                     <hr></hr>
                                 </header>
                                 <div class="body" th:text="${art.description}">
@@ -102,10 +93,8 @@
                             </article>
                         </div>
                     </div>
-                    <div class="paging">
-                        <a th:if="${page.hasPreviousPage} == true" th:href="${path}+'/page/'+${page.prePage}" class="newer"><i>&lt;&lt;</i></a>
-                        <a href="#" ><i th:text="${page.pageNum}"></i></a>
-                        <a th:if="${page.hasNextPage} == true" th:href="${path}+'/page/'+${page.nextPage}" class="older"><i>&gt;&gt;</i></a>
+                    <div class="pagination">
+
                     </div>
                 </div>
                 <aside class="col-md-4 blog-aside" th:include="common/html/aside::aside"></aside>
@@ -118,6 +107,26 @@
     <script th:src="${path}+'/js/jquery.min.js'"></script>
     <script th:src="${path}+'/js/bootstrap.min.js'"></script>
     <script th:src="${path}+'/js/modernizr.js'"></script>
+    <script th:src="${path}+'/js/jquery.pagination.js'"></script>
+    <script th:inline="javascript">
+        var opt = getOptionsFromForm();
 
+        function getOptionsFromForm(){
+            var opt = {callback: pageselectCallback};
+            opt.num_display_entries = 5;
+            opt.items_per_page = [[${page.pageSize}]];
+            opt.num_edge_entries = 1;
+            opt.prev_text = '上页';
+            opt.next_text = '下页';
+            return opt;
+        }
+
+        $('.pagination').pagination([[${page.total}]], opt);
+
+        function pageselectCallback(page_index, jq){
+            //alert($(this).pagination);
+            return false;
+        }
+    </script>
 </body>
 </html>

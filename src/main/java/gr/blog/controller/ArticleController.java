@@ -34,7 +34,7 @@ public class ArticleController {
             filter.put("orderColumn", "click_count");
             filter.put("orderDir", "desc");
             List<Article> articleList = articleService.findArticleList(1, 4, filter);
-            PageInfo<Article> info = new PageInfo<Article>(articleList);
+            PageInfo<Article> info = new PageInfo<>(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
         } catch (Exception e) {
