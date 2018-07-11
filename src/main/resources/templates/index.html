@@ -113,6 +113,8 @@
 
         function getOptionsFromForm(){
             var opt = {callback: pageselectCallback};
+            //opt.link_to = '/page/';
+            opt.current_page = [[${page.pageNum - 1}]];
             opt.num_display_entries = 5;
             opt.items_per_page = [[${page.pageSize}]];
             opt.num_edge_entries = 1;
@@ -124,7 +126,7 @@
         $('.pagination').pagination([[${page.total}]], opt);
 
         function pageselectCallback(page_index, jq){
-            //alert($(this).pagination);
+            //window.location = "/page/" + page_index;
             return false;
         }
     </script>
