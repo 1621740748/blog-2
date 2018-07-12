@@ -41,7 +41,7 @@ public class ArticleController {
             e.printStackTrace();
             throw new FontException(e.getMessage());
         }
-        return "index";
+        return "frontstage/index";
     }
 
     /**
