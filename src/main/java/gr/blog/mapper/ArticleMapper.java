@@ -1,6 +1,7 @@
 package gr.blog.mapper;
 
 import gr.blog.model.Article;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,8 @@ public interface ArticleMapper {
     int getCount(Map<String, Object> filter);
 
     int deleteBatch(int[] ids);
+
+    Article getPre(@Param("id") int id, @Param("categoryId") Integer categoryId);
+
+    Article getNext(@Param("id") int id, @Param("categoryId") Integer categoryId);
 }

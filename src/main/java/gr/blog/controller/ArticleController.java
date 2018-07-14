@@ -30,7 +30,7 @@ public class ArticleController {
     public String list(ModelMap model,@PathVariable(value = "pageNum", required = false)Integer pageNum) throws FontException {
         try {
             Map<String, Object> filter = new HashMap<>();
-            filter.put("orderColumn", "click_count");
+            filter.put("orderColumn", "id");
             filter.put("orderDir", "desc");
             List<Article> articleList;
             if(null == pageNum) {
@@ -57,9 +57,9 @@ public class ArticleController {
     @RequestMapping(value = {"/category/{categoryId}/{pageNum}"}, method = RequestMethod.GET)
     public String page(ModelMap model, @PathVariable(name = "pageNum") int categoryId, @PathVariable(name = "pageNum") int pageNum) throws FontException {
         try {
-            System.out.println("hello error!!");
+            //System.out.println("hello error!!");
             Map<String, Object> filter = new HashMap<>();
-            filter.put("orderColumn", "click_count");
+            filter.put("orderColumn", "id");
             filter.put("orderDir", "desc");
             List<Article> articleList = articleService.findArticleList(pageNum, 20, filter);
             PageInfo<Article> info = new PageInfo(articleList);
@@ -81,6 +81,10 @@ public class ArticleController {
         Article article = articleService.get(id);
         articleService.addCkickCount(id);//增加一个点击量
         model.addAttribute("article", article);
+        Article preArticle = articleService.getPre(id, article.getCategoryId());
+        model.addAttribute("preArticle", preArticle);
+        Article nextArticle = articleService.getNext(id, article.getCategoryId());
+        model.addAttribute("nextArticle", nextArticle);
         return "frontstage/info";
     }
 

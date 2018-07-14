@@ -124,6 +124,24 @@
     from blog_article t1, blog_category t2
     where t1.id = #{id,jdbcType=INTEGER} and t1.category_id = t2.id
   </select>
+
+  <select id="getPre" resultMap="BaseResultMap">
+    select *
+    from blog_article
+    where <![CDATA[id < #{id,jdbcType=INTEGER} ]]> and category_id = #{categoryId, jdbcType=INTEGER}
+      order by id desc
+    limit 1
+  </select>
+
+  <select id="getNext" resultMap="BaseResultMap">
+      select
+      *
+      from blog_article
+      where <![CDATA[id > #{id,jdbcType=INTEGER} ]]> and category_id = #{categoryId, jdbcType=INTEGER}
+      order by id asc
+    limit 1
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_article
     where id = #{id,jdbcType=INTEGER}

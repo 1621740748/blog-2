@@ -42,5 +42,21 @@ public interface ArticleService {
      * @return 1 删除成功， 0 删除失败
      */
     String deleteBatch(int[] ids);
+
+    /**
+     * 获取当前元素的上一个文章
+     * @param id
+     * @param categoryId
+     * @return
+     */
+    Article getPre(int id, Integer categoryId);
+
+    /**
+     * 获取当前元素的下一个文章
+     * @param id
+     * @param categoryId
+     * @return
+     */
+    Article getNext(int id, Integer categoryId);
 }
 

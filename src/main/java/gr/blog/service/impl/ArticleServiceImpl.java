@@ -73,4 +73,14 @@ public class ArticleServiceImpl implements ArticleService {
             return "0";
         }
     }
+
+    @Override
+    public Article getPre(int id, Integer categoryId) {
+        return articleMapper.getPre(id, categoryId);
+    }
+
+    @Override
+    public Article getNext(int id, Integer categoryId) {
+        return articleMapper.getNext(id, categoryId);
+    }
 }
