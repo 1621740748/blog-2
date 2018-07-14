@@ -26,14 +26,18 @@ public class ArticleController {
      * @param model
      * @return
      */
-    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
-    public String list(ModelMap model) throws FontException {
+    @RequestMapping(value = {"/","/index","/index/{pageNum}"}, method = RequestMethod.GET)
+    public String list(ModelMap model,@PathVariable(value = "pageNum", required = false)Integer pageNum) throws FontException {
         try {
-            //PageHelper.startPage(1, 4);//分页默认是每页4个元素
             Map<String, Object> filter = new HashMap<>();
             filter.put("orderColumn", "click_count");
             filter.put("orderDir", "desc");
-            List<Article> articleList = articleService.findArticleList(1, 4, filter);
+            List<Article> articleList;
+            if(null == pageNum) {
+                articleList = articleService.findArticleList(1, 20, filter);
+            }else{
+                articleList = articleService.findArticleList(pageNum, 20, filter);
+            }
             PageInfo<Article> info = new PageInfo<>(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
@@ -50,14 +54,14 @@ public class ArticleController {
      * @param pageNum
      * @return
      */
-    @RequestMapping(value = {"/page/{pageNum}"}, method = RequestMethod.GET)
-    public String page(ModelMap model, @PathVariable(name = "pageNum") int pageNum) throws FontException {
+    @RequestMapping(value = {"/category/{categoryId}/{pageNum}"}, method = RequestMethod.GET)
+    public String page(ModelMap model, @PathVariable(name = "pageNum") int categoryId, @PathVariable(name = "pageNum") int pageNum) throws FontException {
         try {
-            //PageHelper.startPage(pageNum, 4);//分页默认是每页4个元素
+            System.out.println("hello error!!");
             Map<String, Object> filter = new HashMap<>();
             filter.put("orderColumn", "click_count");
             filter.put("orderDir", "desc");
-            List<Article> articleList = articleService.findArticleList(pageNum, 4, filter);
+            List<Article> articleList = articleService.findArticleList(pageNum, 20, filter);
             PageInfo<Article> info = new PageInfo(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
@@ -66,7 +70,7 @@ public class ArticleController {
             //System.out.println("test");
             throw new FontException(e.getMessage());
         }
-        return "index";
+        return "frontstage/index";
     }
 
     /**
@@ -77,7 +81,7 @@ public class ArticleController {
         Article article = articleService.get(id);
         articleService.addCkickCount(id);//增加一个点击量
         model.addAttribute("article", article);
-        return "detail";
+        return "frontstage/info";
     }
 
 }
