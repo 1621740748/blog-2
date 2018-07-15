@@ -113,4 +113,9 @@ config.image_previewText = '图片最大宽度最好设置为760px';
     </script>
 ```
 # 小总结展示
+## 后台文章管理
 ![图片丢失了](http://i4.bvimg.com/652887/eb6cbf783485c2ce.png)
+## 前台首页展示
+![图片丢失了](http://i2.bvimg.com/652887/97851bf5ae840b15s.png)
+## 关于我
+![图片丢失了](http://i2.bvimg.com/652887/12f58cb29a237014s.png)
