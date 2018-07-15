@@ -22,11 +22,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    /**
-     * 首页列表展示
-     * @param model
-     * @return
-     */
+    @ApiOperation("前台-首页列表展示")
     @RequestMapping(value = {"/","/index","/index/{pageNum}"}, method = RequestMethod.GET)
     public String list(ModelMap model,@PathVariable(value = "pageNum", required = false)Integer pageNum) throws FontException {
         try {
@@ -74,9 +70,7 @@ public class ArticleController {
         return "frontstage/index";
     }
 
-    /**
-     * 根据文章id查询文章详细信息
-     */
+    @ApiOperation("根据文章id查询文章详细信息")
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public String detail(@PathVariable("id") int id, ModelMap model){
         Article article = articleService.get(id);

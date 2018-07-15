@@ -2,9 +2,9 @@
 bootstrap+springboot博客最简单实现
 项目地址
 
-(前台):[前台连接](http://47.52.56.163/)
+(前台):[前台连接](http://jzyblog.top/)
         
-(后台):[后台连接](http://47.52.56.163/back/)
+(后台):[后台连接](http://jzyblog.top/back/)
 
 ## 1 集成了mybatis+thymeleaf
 ## 2 集成了swagger2（访问路径http://localhost/swagger-ui.html#/）

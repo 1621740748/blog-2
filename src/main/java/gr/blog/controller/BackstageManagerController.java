@@ -34,9 +34,8 @@ public class BackstageManagerController {
     private CategoryService categoryService;
 
     @ApiOperation("后台首页")
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/index"}, method = RequestMethod.GET)
     public String index(){
-
         return "backstage/index";
     }
 
