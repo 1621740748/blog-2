@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import gr.blog.exception.FontException;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -88,4 +89,9 @@ public class ArticleController {
         return "frontstage/info";
     }
 
+    @ApiOperation("关于我")
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    public String about(){
+        return "frontstage/about";
+    }
 }
