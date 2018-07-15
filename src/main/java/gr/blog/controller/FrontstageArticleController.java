@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class ArticleController {
+public class FrontstageArticleController {
 
     @Autowired
     private ArticleService articleService;

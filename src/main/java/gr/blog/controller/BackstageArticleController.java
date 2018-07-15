@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @RequestMapping("/back")
 @Controller
-public class BackstageManagerController {
+public class BackstageArticleController {
 
     @Autowired
     private ArticleService articleService;
