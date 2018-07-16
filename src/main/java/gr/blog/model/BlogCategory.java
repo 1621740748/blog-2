@@ -7,6 +7,10 @@ public class BlogCategory implements Serializable {
 
     private String categoryName;
 
+    private Integer pid;
+
+    private String sort;
+
     public Integer getId() {
         return id;
     }
@@ -21,5 +25,21 @@ public class BlogCategory implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName == null ? null : categoryName.trim();
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String order) {
+        this.sort = order == null ? null : order.trim();
     }
 }

@@ -3,6 +3,7 @@ package gr.blog.mapper;
 import gr.blog.model.BlogCategory;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BlogCategoryMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,4 +19,8 @@ public interface BlogCategoryMapper {
     int updateByPrimaryKey(BlogCategory record);
 
     List<BlogCategory> getAllCategory();
+
+    List<BlogCategory> getCategoryList(Map<String,Object> filter);
+
+    int getCount(Map<String,Object> filter);
 }

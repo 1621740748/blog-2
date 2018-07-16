@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="gr.blog.mapper.BlogCategoryMapper">
-  <resultMap id="BaseResultMap" type="gr.blog.model.BlogCategory">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gr.blog.mapper.BlogCategoryMapper" >
+  <resultMap id="BaseResultMap" type="gr.blog.model.BlogCategory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, category_name
+  <sql id="Base_Column_List" >
+    id, category_name, pid, sort
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from blog_category
@@ -21,45 +23,93 @@
     from blog_category
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <!-- 分页查询 -->
+  <select id="getCategoryList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from blog_category
+    <if test="sSearch != null and sSearch != ''">
+      <where>
+        <if test="id != null" >
+          t1.id like '%${sSearch}%'
+        </if>
+        <if test="categoryName != null" >
+          or category_name like '%${sSearch}%'
+        </if>
+        <if test="pid != null" >
+          or pid like '%${sSearch}%'
+        </if>
+        <if test="sort != null" >
+          or sort like '%${sSearch}%'
+        </if>
+      </where>
+    </if>
+    <if test="orderColumn != null and orderDir != null">
+      order by ${orderColumn} ${orderDir}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="gr.blog.model.BlogCategory">
-    insert into blog_category (id, category_name)
-    values (#{id,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="gr.blog.model.BlogCategory" >
+    insert into blog_category (id, category_name, pid, 
+      order)
+    values (#{id,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{order,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="gr.blog.model.BlogCategory">
+  <insert id="insertSelective" parameterType="gr.blog.model.BlogCategory" >
     insert into blog_category
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="categoryName != null">
+      <if test="categoryName != null" >
         category_name,
       </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="order != null" >
+        order,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="categoryName != null">
+      <if test="categoryName != null" >
         #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="gr.blog.model.BlogCategory">
+  <update id="updateByPrimaryKeySelective" parameterType="gr.blog.model.BlogCategory" >
     update blog_category
-    <set>
-      <if test="categoryName != null">
+    <set >
+      <if test="categoryName != null" >
         category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="gr.blog.model.BlogCategory">
+  <update id="updateByPrimaryKey" parameterType="gr.blog.model.BlogCategory" >
     update blog_category
-    set category_name = #{categoryName,jdbcType=VARCHAR}
+    set category_name = #{categoryName,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      order = #{order,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

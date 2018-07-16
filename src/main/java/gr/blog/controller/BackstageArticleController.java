@@ -2,6 +2,7 @@ package gr.blog.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import gr.blog.model.Article;
 import gr.blog.model.BlogCategory;
 import gr.blog.service.ArticleService;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台管理模块
+ * 后台文章管理模块
  */
 @RequestMapping("/back")
 @Controller
@@ -54,7 +55,7 @@ public class BackstageArticleController {
         String sEcho = null;
         int iDisplayStart = 0;//起始索引
         int iDisplayLength = 10;//每页显示的行数
-        int count;
+        long count;
 
         String orderColumn ="";//默认排序列
         String orderDir = "asc";//默认排序方式为升序
@@ -94,7 +95,7 @@ public class BackstageArticleController {
         filter.put("orderDir", orderDir);
         filter.put("sSearch", sSearch);
         articleList = articleService.findArticleList((iDisplayStart/iDisplayLength + 1), iDisplayLength, filter);
-        count = articleService.getCount(filter);
+        count = new PageInfo<>(articleList).getTotal();
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("sEcho", sEcho);//前端传递的，只需获取然后原数返回即可

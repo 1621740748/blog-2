@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8"></meta>
     <title>Vali Admin</title>
     <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular."></meta>
@@ -8,57 +8,54 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.min.css"></link>
-  </head>
-  <body class="app sidebar-mini rtl">
-      <!-- Navbar-->
-      <div th:replace="common/html/back::header"></div>
-      <!-- Sidebar menu-->
-      <div th:replace="common/html/back::sidebar"></div>
-    <main class="app-content">
-      <div class="app-title">
+</head>
+<body class="app sidebar-mini rtl">
+<!-- Navbar-->
+<div th:replace="common/html/back::header"></div>
+<!-- Sidebar menu-->
+<div th:replace="common/html/back::sidebar"></div>
+<main class="app-content">
+    <div class="app-title">
         <div>
-          <h1><i class="fa fa-th-list"></i> 文章管理</h1>
-          <p>文章管理相关功能</p>
+            <h1><i class="fa fa-th-list"></i> 分类管理</h1>
+            <p>分类管理相关功能</p>
         </div>
         <ul class="app-breadcrumb breadcrumb side">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item">文章管理</li>
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item">分类管理</li>
         </ul>
-      </div>
-      <div class="row">
+    </div>
+    <div class="row">
         <div class="col-md-12">
-          <div class="tile">
-              <div class="tile-body">
-                  <table class="table table-hover table-bordered" id="sampleTable" style="white-space:nowrap">
-                      <thead>
-                          <tr>
-                              <th>序列</th>
-                              <th>标题</th>
-                              <th>分类</th>
-                              <th>作者</th>
-                              <th>发布时间</th>
-                              <th>推荐</th>
-                              <th>点击量</th>
-                          </tr>
-                      </thead>
-                  </table>
-              </div>
-          </div>
+            <div class="tile">
+                <div class="tile-body">
+                    <table class="table table-hover table-bordered" id="sampleTable" style="white-space:nowrap">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>分类名称</th>
+                            <th>上级分类ID</th>
+                            <th>排序号</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </main>
-    <!-- Essential javascripts for application to work-->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="/js/plugins/pace.min.js"></script>
-    <script src="/layer/layer.js"></script>
-    <!-- Data table plugin-->
-    <script type="text/javascript" src="/js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/js/plugins/dataTables.bootstrap.min.js"></script>
-  </body>
-  <script type="text/javascript" th:inline="javascript">
+    </div>
+</main>
+<!-- Essential javascripts for application to work-->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="/js/plugins/pace.min.js"></script>
+<script src="/layer/layer.js"></script>
+<!-- Data table plugin-->
+<script type="text/javascript" src="/js/plugins/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/js/plugins/dataTables.bootstrap.min.js"></script>
+</body>
+<script type="text/javascript" th:inline="javascript">
       /*<![CDATA[*/
         var table = $('#sampleTable').DataTable({
             "sDom" : '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-6 crudBtn"><"col-sm-12 col-md-6"p>><"clear">',
@@ -66,22 +63,11 @@
             bServerSide : true,//开启后台分页功能
             fnServerData: retrieveData, //执行函数
             bPaginate : true,//显示分页按钮
-            sAjaxSource : "/back/articlePage",//请求url
+            sAjaxSource : "/back/categoryPage",//请求url
             aoColumns : [{"mDataProp": "id", "sDefaultContent": ""},
-                         {"mDataProp": "title", "sDefaultContent": ""},
-                         {"mDataProp": "blogCategory.categoryName", "sDefaultContent": "","bSortable": false},
-                         {"mDataProp": "authorId", "sDefaultContent": ""},
-                         {"mDataProp": "datePublish", "mRender": function(data, type, full){
-                            var date = new Date(data);
-                            var y = date.getFullYear();
-                            var m = "0"+(date.getMonth()+1);
-                            var d = "0"+date.getDate();
-                            return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
-                         }, "sDefaultContent": ""},
-                         {"mDataProp": "isRecommend", "mRender": function(data, type, full){
-                            if(data == "0"){return "否"}else if(data == "1"){return "是"}
-                         },"sDefaultContent": "", "bSortable": false},
-                         {"mDataProp": "clickCount", "sDefaultContent": ""}
+                         {"mDataProp": "categoryName", "sDefaultContent": ""},
+                         {"mDataProp": "pid", "sDefaultContent": "","bSortable": false},
+                         {"mDataProp": "sort", "sDefaultContent": ""}
                         ],
             "language": {
               "lengthMenu": "每页 _MENU_ 条记录",
@@ -112,7 +98,7 @@
                           + ' <button id="delete" type="button" class="btn btn-default btn-danger"><i class="fa fa-trash-o"></i>删除</button >');
 
       $("#add").bind("click",function(){
-          window.location.href = "/back/article/input";
+          window.location.href = "/back/category/input";
       });
 
       $("#update").bind("click",function(){
@@ -125,7 +111,7 @@
             layer.msg("请选择指定元素进行修改");
           }
           var titleId = data[0].id;
-          window.location.href = "/back/article/input?id="+titleId;
+          window.location.href = "/back/category/input?id="+titleId;
       });
 
       $("#delete").bind("click", function(){
@@ -141,7 +127,7 @@
                   buf.push(data[i].id);
               }
               $.ajax({
-                  url:"/back/article/delete",
+                  url:"/back/category/delete",
                   type:"post",
                   data:{"ids": buf.toString()},
                   dataType:"json",

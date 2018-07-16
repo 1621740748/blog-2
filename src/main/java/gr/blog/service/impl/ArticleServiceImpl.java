@@ -60,11 +60,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int getCount(Map<String, Object> filter) {
-        return articleMapper.getCount(filter);
-    }
-
-    @Override
     public String deleteBatch(int[] ids) {
         int deleteRows = articleMapper.deleteBatch(ids);
         if (deleteRows != 0){

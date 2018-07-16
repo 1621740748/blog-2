@@ -25,8 +25,6 @@ public interface ArticleMapper {
 
     void addClickCount(int id);
 
-    int getCount(Map<String, Object> filter);
-
     int deleteBatch(int[] ids);
 
     Article getPre(@Param("id") int id, @Param("categoryId") Integer categoryId);
