@@ -23,4 +23,8 @@ public interface BlogCategoryMapper {
     List<BlogCategory> getCategoryList(Map<String,Object> filter);
 
     int getCount(Map<String,Object> filter);
+
+    List<BlogCategory> getTopCategorys();
+
+    int deleteBatch(int[] ids);
 }

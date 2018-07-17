@@ -29,4 +29,34 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryList;
     }
 
+    @Override
+    public BlogCategory get(Integer id) {
+        return categoryMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<BlogCategory> getTopCategorys() {
+        return categoryMapper.getTopCategorys();
+    }
+
+    @Override
+    public void addRecord(BlogCategory category) {
+        categoryMapper.insertSelective(category);
+    }
+
+    @Override
+    public void updateRecord(BlogCategory category) {
+        categoryMapper.updateByPrimaryKeySelective(category);
+    }
+
+    @Override
+    public String deleteBatch(int[] ids) {
+        int deleteRows = categoryMapper.deleteBatch(ids);
+        if (deleteRows != 0){
+            return "1";
+        }else{
+            return "0";
+        }
+    }
+
 }

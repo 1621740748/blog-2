@@ -7,14 +7,22 @@
     <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="sort" property="sort" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="ResultWithParent" type="gr.blog.model.BlogCategory" extends="BaseResultMap">
+    <association property="parentCategory" javaType="gr.blog.model.BlogCategory">
+      <id column="pid" property="id"></id>
+      <result column="p_category_name" property="categoryName"></result>
+    </association>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, category_name, pid, sort
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from blog_category
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" resultMap="ResultWithParent" parameterType="java.lang.Integer" >
+    select
+    t1.id, t1.category_name, t1.sort, t1.pid , t2.category_name p_category_name
+    from blog_category t1 left join blog_category t2 on t1.pid = t2.id
+    where t1.id = #{id,jdbcType=INTEGER}
   </select>
 
   <select id="getAllCategory" resultMap="BaseResultMap">
@@ -23,29 +31,36 @@
     from blog_category
   </select>
 
-  <!-- 分页查询 -->
-  <select id="getCategoryList" resultMap="BaseResultMap" parameterType="java.util.Map">
+  <select id="getTopCategorys" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from blog_category
+    where pid=0
+  </select>
+
+  <!-- 分页查询 -->
+  <select id="getCategoryList" resultMap="ResultWithParent" parameterType="java.util.Map">
+    select
+    t1.id, t1.category_name, t1.sort, t1.pid , t2.category_name p_category_name
+    from blog_category t1 left join blog_category t2 on t1.pid = t2.id
     <if test="sSearch != null and sSearch != ''">
       <where>
         <if test="id != null" >
           t1.id like '%${sSearch}%'
         </if>
         <if test="categoryName != null" >
-          or category_name like '%${sSearch}%'
+          or t1.category_name like '%${sSearch}%'
         </if>
         <if test="pid != null" >
-          or pid like '%${sSearch}%'
+          or t1.pid like '%${sSearch}%'
         </if>
         <if test="sort != null" >
-          or sort like '%${sSearch}%'
+          or t1.sort like '%${sSearch}%'
         </if>
       </where>
     </if>
     <if test="orderColumn != null and orderDir != null">
-      order by ${orderColumn} ${orderDir}
+      order by t1.${orderColumn} ${orderDir}
     </if>
   </select>
 
@@ -53,11 +68,21 @@
     delete from blog_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteBatch" parameterType="int[]" >
+    delete from blog_category
+    where id in
+    <foreach collection="array" item="ids" index="no" open="("
+             separator="," close=")">
+      ${ids}
+    </foreach>
+  </delete>
+
   <insert id="insert" parameterType="gr.blog.model.BlogCategory" >
     insert into blog_category (id, category_name, pid, 
-      order)
+      sort)
     values (#{id,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
-      #{order,jdbcType=VARCHAR})
+      #{sort,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="gr.blog.model.BlogCategory" >
     insert into blog_category
@@ -71,8 +96,8 @@
       <if test="pid != null" >
         pid,
       </if>
-      <if test="order != null" >
-        order,
+      <if test="sort != null" >
+        sort,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -85,8 +110,8 @@
       <if test="pid != null" >
         #{pid,jdbcType=INTEGER},
       </if>
-      <if test="order != null" >
-        #{order,jdbcType=VARCHAR},
+      <if test="sort != null" >
+        #{sort,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -99,8 +124,8 @@
       <if test="pid != null" >
         pid = #{pid,jdbcType=INTEGER},
       </if>
-      <if test="order != null" >
-        order = #{order,jdbcType=VARCHAR},
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -109,7 +134,7 @@
     update blog_category
     set category_name = #{categoryName,jdbcType=VARCHAR},
       pid = #{pid,jdbcType=INTEGER},
-      order = #{order,jdbcType=VARCHAR}
+    sort = #{sort,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

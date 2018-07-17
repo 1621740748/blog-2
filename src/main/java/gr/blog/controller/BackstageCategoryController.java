@@ -10,6 +10,8 @@ import gr.blog.utils.StringUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -90,4 +92,38 @@ public class BackstageCategoryController {
         jsonObject.put("aaData", categoryList);//返回列表的数据。
         return jsonObject.toJSONString();
     }
+
+    @ApiOperation(value = "进入分类（新增/修改）页面")
+    @RequestMapping(value = "/category/input",method = RequestMethod.GET)
+    public String input(ModelMap model, Integer id){
+        if (id != null){//不为null说明 为修改操作
+            BlogCategory category = categoryService.get(id);
+            model.addAttribute("category", category);
+        }
+        List<BlogCategory> categoryList = categoryService.getTopCategorys();
+        model.addAttribute("topCategory",categoryList);
+        return "backstage/categoryInput";
+    }
+
+    @ApiOperation("后台管理-分类新增/修改")
+    @RequestMapping(value = {"/category/add", "/category/update"}, method = RequestMethod.POST)
+    public String categoryAdd(@ModelAttribute BlogCategory category){
+        if(category.getId() == null){//新增
+            categoryService.addRecord(category);
+        }else{//更新记录
+            categoryService.updateRecord(category);
+        }
+        return "redirect:/back/category";
+    }
+
+    @ApiOperation("后台管理-分类删除")
+    @RequestMapping(value = {"/category/delete"}, method = RequestMethod.POST)
+    @ResponseBody
+    public String categoryDelete(int [] ids){
+        String result = categoryService.deleteBatch(ids);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result",result);
+        return jsonObject.toJSONString();
+    }
+
 }
