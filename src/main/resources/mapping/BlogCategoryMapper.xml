@@ -29,6 +29,7 @@
     select
     <include refid="Base_Column_List" />
     from blog_category
+    where pid !=0
   </select>
 
   <select id="getTopCategorys" resultMap="BaseResultMap">
