@@ -101,4 +101,10 @@ public class FrontstageArticleController {
     public String about(){
         return "frontstage/about";
     }
+
+    @ApiOperation("时间轴")
+    @RequestMapping(value = "/time", method = RequestMethod.GET)
+    public String time(){
+        return "frontstage/time";
+    }
 }

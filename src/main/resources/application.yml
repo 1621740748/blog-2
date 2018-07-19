@@ -9,6 +9,7 @@ logging:
         gr.blog.mapper: info
 
 spring:
+
     http:
         encoding:
             force: true
