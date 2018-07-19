@@ -19,11 +19,23 @@
   </resultMap>
 
   <resultMap id="ResultMapWithCategory" type="gr.blog.model.Article" extends="BaseResultMap" >
-    <association property="blogCategory" resultMap="gr.blog.mapper.BlogCategoryMapper.BaseResultMap"></association>
+    <association property="blogCategory" javaType="gr.blog.model.BlogCategory">
+      <id column="category_id" property="id" jdbcType="INTEGER" />
+      <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+      <result column="pid" property="pid" jdbcType="INTEGER" />
+      <result column="sort" property="sort" jdbcType="VARCHAR" />
+      <result column="category_description" property="description" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
 
   <resultMap id="ResultMapWithCategoryAndBLOBs" type="gr.blog.model.Article" extends="ResultMapWithBLOBs" >
-    <association property="blogCategory" resultMap="gr.blog.mapper.BlogCategoryMapper.BaseResultMap"></association>
+    <association property="blogCategory" javaType="gr.blog.model.BlogCategory">
+      <id column="category_id" property="id" jdbcType="INTEGER" />
+      <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+      <result column="pid" property="pid" jdbcType="INTEGER" />
+      <result column="sort" property="sort" jdbcType="VARCHAR" />
+      <result column="category_description" property="description" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
 
   <sql id="Base_Column_List" >
@@ -40,40 +52,51 @@
   <!-- 分页查询 -->
   <select id="getAllArticle" resultMap="ResultMapWithCategory" parameterType="java.util.Map" useCache="true">
     select
-    t1.id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
-    tag_id,photo, category_name
+    t1.id, title, t1.description, click_count, is_recommend, date_publish, author_id, category_id,
+    tag_id,photo, t2.category_name
     from blog_article t1 left join blog_category t2 on t2.id = t1.category_id
-    <if test="sSearch != null and sSearch != ''">
-      <where>
-        <if test="id != null" >
-          t1.id like '%${sSearch}%'
-        </if>
-        <if test="title != null" >
-          or title like '%${sSearch}%'
-        </if>
-        <if test="description != null" >
-          or description like '%${sSearch}%'
-        </if>
-        <if test="clickCount != null" >
-          or click_count like '%${sSearch}%'
-        </if>
-        <if test="datePublish != null" >
-          or date_publish like binary '%${sSearch}%'
-        </if>
-        <if test="authorId != null" >
-          or author_id like '%${sSearch}%'
-        </if>
-        <if test="categoryId != null" >
-          or category_id like '%${sSearch}%'
-        </if>
-        <if test="tagId != null" >
-          or tag_id like '%${sSearch}%'
-        </if>
-        <if test="content != null" >
-          or content like '%${sSearch}%'
-        </if>
-      </where>
-    </if>
+    <choose>
+      <!-- 后台搜索模糊查询 -->
+      <when test="sSearch != null and sSearch != ''">
+        <where>
+          <if test="id != null" >
+            t1.id like '%${sSearch}%'
+          </if>
+          <if test="title != null" >
+            or title like '%${sSearch}%'
+          </if>
+          <if test="description != null" >
+            or t1.description like '%${sSearch}%'
+          </if>
+          <if test="clickCount != null" >
+            or click_count like '%${sSearch}%'
+          </if>
+          <if test="datePublish != null" >
+            or date_publish like binary '%${sSearch}%'
+          </if>
+          <if test="authorId != null" >
+            or author_id like '%${sSearch}%'
+          </if>
+          <if test="categoryId != null" >
+            or category_id like '%${sSearch}%'
+          </if>
+          <if test="tagId != null" >
+            or tag_id like '%${sSearch}%'
+          </if>
+          <if test="content != null" >
+            or content like '%${sSearch}%'
+          </if>
+        </where>
+      </when>
+      <!-- 前台精确查询 -->
+      <otherwise>
+        <where>
+          <if test="categoryId != null" >
+            category_id = ${categoryId}
+          </if>
+        </where>
+      </otherwise>
+    </choose>
     <if test="orderColumn != null and orderDir != null">
     order by ${orderColumn} ${orderDir}
     </if>
@@ -82,7 +105,7 @@
 
   <select id="selectByPrimaryKey" resultMap="ResultMapWithCategoryAndBLOBs" parameterType="java.lang.Integer" >
     select
-    t1.id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
+    t1.id, title, t1.description, click_count, is_recommend, date_publish, author_id, category_id,
     tag_id,photo, category_name,
     <include refid="Blob_Column_List" />
     from blog_article t1, blog_category t2

@@ -11,7 +11,17 @@ public class BlogCategory implements Serializable {
 
     private String sort;
 
+    private String description;
+
     private BlogCategory parentCategory;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public BlogCategory getParentCategory() {
         return parentCategory;

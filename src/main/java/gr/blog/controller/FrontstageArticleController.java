@@ -3,7 +3,9 @@ package gr.blog.controller;
 import com.github.pagehelper.PageInfo;
 import gr.blog.exception.FontException;
 import gr.blog.model.Article;
+import gr.blog.model.BlogCategory;
 import gr.blog.service.ArticleService;
+import gr.blog.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class FrontstageArticleController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @ApiOperation("前台-首页列表展示")
     @RequestMapping(value = {"/","/index","/index/{pageNum}"}, method = RequestMethod.GET)
@@ -51,23 +56,31 @@ public class FrontstageArticleController {
      * @param pageNum
      * @return
      */
-    @RequestMapping(value = {"/category/{categoryId}/{pageNum}"}, method = RequestMethod.GET)
-    public String page(ModelMap model, @PathVariable(name = "pageNum") int categoryId, @PathVariable(name = "pageNum") int pageNum) throws FontException {
+    @RequestMapping(value = {"/category/{categoryId}/{pageNum}", "/category/{categoryId}/"}, method = RequestMethod.GET)
+    public String page(ModelMap model, @PathVariable(name = "categoryId") int categoryId, @PathVariable(name = "pageNum", required = false) Integer pageNum) throws FontException {
         try {
-            //System.out.println("hello error!!");
+//            System.out.println("hello error!!");
             Map<String, Object> filter = new HashMap<>();
             filter.put("orderColumn", "id");
             filter.put("orderDir", "desc");
-            List<Article> articleList = articleService.findArticleList(pageNum, 20, filter);
+            filter.put("categoryId", categoryId);
+            List<Article> articleList;
+            if (pageNum == null) {
+                articleList = articleService.findArticleList(0, 20, filter);
+            }else{
+                articleList = articleService.findArticleList(pageNum, 20, filter);
+            }
             PageInfo<Article> info = new PageInfo(articleList);
+            BlogCategory category = categoryService.get(categoryId);
             model.addAttribute("page", info);
+            model.addAttribute("category", category);
             model.addAttribute("articleList", articleList);
             //int a = 1/0;
         } catch (Exception e) {
-            //System.out.println("test");
+//            System.out.println("test");
             throw new FontException(e.getMessage());
         }
-        return "frontstage/index";
+        return "frontstage/list";
     }
 
     @ApiOperation("根据文章id查询文章详细信息")
