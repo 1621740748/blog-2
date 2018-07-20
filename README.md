@@ -120,4 +120,4 @@ config.image_previewText = '图片最大宽度最好设置为760px';
 ## 关于我
 ![图片丢失了](http://i2.bvimg.com/652887/12f58cb29a237014s.png)
 ## 9 集成畅言评论留言系统
-![图片丢失了](http://i1.bvimg.com/652887/b4acfaba0e20c83c.png)
+![图片丢失了](http://i1.bvimg.com/652887/b4acfaba0e20c83cs.png)
