@@ -9,7 +9,9 @@ logging:
         gr.blog.mapper: info
 
 spring:
-
+    mvc:
+        favicon:
+            enable: false
     http:
         encoding:
             force: true

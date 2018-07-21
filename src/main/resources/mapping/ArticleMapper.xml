@@ -151,7 +151,7 @@
     #{authorId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER},
     #{content,jdbcType=LONGVARCHAR}),#{photo,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="gr.blog.model.Article" >
+  <insert id="insertSelective" parameterType="gr.blog.model.Article" keyProperty="id" useGeneratedKeys="true">
     insert into blog_article
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

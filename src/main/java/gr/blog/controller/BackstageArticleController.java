@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import gr.blog.model.Article;
 import gr.blog.model.BlogCategory;
+import gr.blog.model.BlogTag;
 import gr.blog.service.ArticleService;
 import gr.blog.service.CategoryService;
+import gr.blog.service.TagService;
 import gr.blog.utils.ImageUploadUtil;
 import gr.blog.utils.StringUtil;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +35,9 @@ public class BackstageArticleController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private TagService tagService;
 
     @ApiOperation("后台首页")
     @RequestMapping(value = {"", "/index"}, method = RequestMethod.GET)
@@ -119,10 +124,11 @@ public class BackstageArticleController {
 
     @ApiOperation("后台管理-文章新增/修改")
     @RequestMapping(value = {"/article/add", "/article/update"}, method = RequestMethod.POST)
-    public String articleAdd(@ModelAttribute Article article){
-        //System.out.println(article.getPhoto());
+    public String articleAdd(@ModelAttribute Article article, String[] tags){
+        //System.out.println(tags.length);
         if(article.getId() == null){//新增
             articleService.addRecord(article);
+            tagService.addRecordsByIdAndTagname(article.getId(), tags);
         }else{//更新记录
             articleService.updateRecord(article);
         }
@@ -139,7 +145,7 @@ public class BackstageArticleController {
         return jsonObject.toJSONString();
     }
 
-    @ApiOperation("ckeditor编辑器文件上传处理")
+    @ApiOperation("ckeditor编辑器文件上传处理,后期需要重新编写")
     @RequestMapping(value = "/image/fileUpload",method = RequestMethod.POST)
     @ResponseBody
     public String fileUpload(HttpServletRequest request, HttpServletResponse response){
