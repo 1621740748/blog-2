@@ -4,8 +4,10 @@ import com.github.pagehelper.PageInfo;
 import gr.blog.exception.FontException;
 import gr.blog.model.Article;
 import gr.blog.model.BlogCategory;
+import gr.blog.model.BlogTag;
 import gr.blog.service.ArticleService;
 import gr.blog.service.CategoryService;
+import gr.blog.service.TagService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class FrontstageArticleController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private TagService tagService;
 
     @ApiOperation("前台-首页列表展示")
     @RequestMapping(value = {"/","/index","/index/{pageNum}"}, method = RequestMethod.GET)
@@ -50,12 +55,7 @@ public class FrontstageArticleController {
         return "frontstage/index";
     }
 
-    /**
-     * 分页
-     * @param model
-     * @param pageNum
-     * @return
-     */
+    @ApiOperation("前台-按照前台二级分类展示")
     @RequestMapping(value = {"/category/{categoryId}/{pageNum}", "/category/{categoryId}/"}, method = RequestMethod.GET)
     public String page(ModelMap model, @PathVariable(name = "categoryId") int categoryId, @PathVariable(name = "pageNum", required = false) Integer pageNum) throws FontException {
         try {
@@ -93,6 +93,8 @@ public class FrontstageArticleController {
         model.addAttribute("preArticle", preArticle);
         Article nextArticle = articleService.getNext(id, article.getCategoryId());
         model.addAttribute("nextArticle", nextArticle);
+        List<BlogTag> listTag = tagService.getTagsByArticleId(id);
+        model.addAttribute("tags", listTag);
         return "frontstage/info";
     }
 
