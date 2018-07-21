@@ -32,11 +32,11 @@
       <h3 class="news_title" th:text="${article.title}"></h3>
       <div class="bloginfo">
         <ul>
-          <li class="author"><a href="/" th:text="${article.authorId}"></a></li>
+          <li class="author"><a href="/">蒋中英</a></li>
           <li class="lmname"><a href="/" th:text="${article.blogCategory.categoryName}"></a></li>
           <li class="timer" th:text="${article.datePublish != null}?${#dates.format(article.datePublish, 'yyyy-MM-dd')}:'null'"></li>
-          <li class="view"><span th:text="${article.clickCount}"></span>已阅读</li>
-          <li class="like">9999</li>
+          <li class="view">共<span th:text="${article.clickCount}"></span>人围观</li>
+          <!--<li class="like">9999</li>-->
         </ul>
       </div>
       <div class="tags"><a href="/" target="_blank" th:each="tag: ${tags}" th:text="${tag.tagName}">个人博客</a> </div>

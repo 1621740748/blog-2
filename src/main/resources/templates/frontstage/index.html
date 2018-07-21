@@ -60,7 +60,7 @@
       <p class="blogtext" th:text="${article.description}"></p>
       <div class="bloginfo">
         <ul>
-          <li class="author"><a href="/" th:text="${article.authorId}"></a></li>
+          <li class="author"><a href="/">蒋中英</a></li>
           <li class="lmname"><a href="/" th:text="${article.blogCategory.categoryName}"></a></li>
           <li class="timer" th:text="${article.datePublish != null}?${#dates.format(article.datePublish, 'yyyy-MM-dd')}:'null'"></li>
           <li class="view"><span th:text="${article.clickCount}"></span>已阅读</li>
