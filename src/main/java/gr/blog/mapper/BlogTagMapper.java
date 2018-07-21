@@ -18,4 +18,8 @@ public interface BlogTagMapper {
     int updateByPrimaryKey(BlogTag record);
 
     void insertByBatch(List<BlogTag> list);
+
+    List<BlogTag> selectByArticleId(Integer ArticleId);
+
+    void deleteByArticleKey(Integer articleId);
 }

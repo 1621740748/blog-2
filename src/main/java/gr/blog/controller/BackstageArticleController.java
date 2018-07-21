@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +117,13 @@ public class BackstageArticleController {
         if (id != null){//不为null说明 为修改操作
             Article article = articleService.get(id);
             model.addAttribute("article", article);
+            //获取博客相关标签，并把标签名以逗号分隔开，返回给页面
+            List<BlogTag> listTag = tagService.getTagsByArticleId(id);
+            StringBuffer buffer = new StringBuffer();
+            for (BlogTag tag: listTag) {
+                buffer.append(tag.getTagName() + ",");
+            }
+            model.addAttribute("tags", buffer);
         }
         List<BlogCategory> listCategory = categoryService.getAllCategory();
         model.addAttribute("listCategory", listCategory);
@@ -131,6 +139,7 @@ public class BackstageArticleController {
             tagService.addRecordsByIdAndTagname(article.getId(), tags);
         }else{//更新记录
             articleService.updateRecord(article);
+            tagService.updateRecordByIdAndTagname(article.getId(),tags);
         }
         return "redirect:/back/article";
     }

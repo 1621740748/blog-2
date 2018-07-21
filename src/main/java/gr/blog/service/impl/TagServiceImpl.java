@@ -16,14 +16,34 @@ public class TagServiceImpl implements TagService {
     private BlogTagMapper blogTagMapper;
 
     @Override
-    public void addRecordsByIdAndTagname(Integer id, String[] tags) {
+    public void addRecordsByIdAndTagname(Integer ArticleId, String[] tags) {
         List<BlogTag> list = new ArrayList<>();
         for(String tagName: tags){
             BlogTag tag = new BlogTag();
-            tag.setArticleId(id);
+            tag.setArticleId(ArticleId);
             tag.setTagName(tagName);
             list.add(tag);
         }
         blogTagMapper.insertByBatch(list);
+    }
+
+    @Override
+    public void updateRecordByIdAndTagname(Integer ArticleId, String[] tags) {
+        //删除博客原有标签
+        blogTagMapper.deleteByArticleKey(ArticleId);
+        //添加新标签列表到博客
+        List<BlogTag> list = new ArrayList<>();
+        for(String tagName: tags){
+            BlogTag tag = new BlogTag();
+            tag.setArticleId(ArticleId);
+            tag.setTagName(tagName);
+            list.add(tag);
+        }
+        blogTagMapper.insertByBatch(list);
+    }
+
+    @Override
+    public List<BlogTag> getTagsByArticleId(Integer ArticleId) {
+        return blogTagMapper.selectByArticleId(ArticleId);
     }
 }
