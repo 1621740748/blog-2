@@ -19,7 +19,7 @@ spring:
             enabled: true
     datasource:
         name: test
-        url: jdbc:mysql://127.0.0.1:3306/blog
+        url: jdbc:mysql://127.0.0.1:3306/blog?allowMultiQueries=true
         username: root
         password: root
         #aliyun Mysql 密码

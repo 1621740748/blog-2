@@ -43,8 +43,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void addCkickCount(int id) {
-        articleMapper.addClickCount(id);
+    public void addCkickCount(int id, String userIp) {
+        articleMapper.addClickCount(id, userIp);
     }
 
     @Override

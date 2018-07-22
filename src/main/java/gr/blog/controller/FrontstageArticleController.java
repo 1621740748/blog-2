@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,9 +86,9 @@ public class FrontstageArticleController {
 
     @ApiOperation("根据文章id查询文章详细信息")
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public String detail(@PathVariable("id") int id, ModelMap model){
+    public String detail(@PathVariable("id") int id, ModelMap model, HttpServletRequest request){
         Article article = articleService.get(id);
-        articleService.addCkickCount(id);//增加一个点击量
+        articleService.addCkickCount(id, request.getRemoteAddr());//增加一个点击量
         model.addAttribute("article", article);
         Article preArticle = articleService.getPre(id, article.getCategoryId());
         model.addAttribute("preArticle", preArticle);

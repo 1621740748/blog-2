@@ -226,9 +226,10 @@
   </insert>
 
   <!-- 增加点击量 -->
-  <update id="addClickCount" parameterType="java.lang.Integer">
-    update blog_article set click_count = click_count+1 where id = #{id,jdbcType=INTEGER}
-  </update>
+  <insert id="addClickCount">
+    insert into blog_visitor_record(article_id, ip) select #{articleId,jdbcType=INTEGER}, #{userIp,jdbcType=VARCHAR} from dual where not exists (select * from blog_visitor_record where ip=#{userIp,jdbcType=VARCHAR} and article_id=#{articleId,jdbcType=INTEGER});
+    update blog_article set click_count = (select count(*) from blog_visitor_record where article_id=#{articleId,jdbcType=INTEGER}) where id = #{articleId,jdbcType=INTEGER};
+  </insert>
 
   <update id="updateByPrimaryKeySelective" parameterType="gr.blog.model.Article" >
     update blog_article

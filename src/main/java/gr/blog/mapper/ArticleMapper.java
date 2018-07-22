@@ -23,7 +23,7 @@ public interface ArticleMapper {
 
     List<Article> getAllArticle(Map<String, Object> filter);
 
-    void addClickCount(int id);
+    void addClickCount(@Param("articleId") int articleId, @Param("userIp") String userIp);
 
     int deleteBatch(int[] ids);
 

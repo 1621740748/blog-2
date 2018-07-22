@@ -15,7 +15,7 @@ public interface ArticleService {
      * 增加一次点击量
      * @param id
      */
-    void addCkickCount(int id);
+    void addCkickCount(int id, String userIp);
 
     /**
      * 新增一条记录
