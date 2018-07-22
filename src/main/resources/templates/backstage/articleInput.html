@@ -43,7 +43,8 @@
                   <label class="control-label col-md-1">贴图</label>
                   <div class="col-md-8">
                     <input id="photo" name="photo" class="form-control" type="text" placeholder="文章贴图" th:value="${article != null}?${article.photo}" onchange="previewImage(this)"></input>
-                    <img th:src="${article != null}?${article.photo}" id="photoPreview" class="img-responsive" width="503px" height="" style="margin-top:15px"></img>
+                    <div id="photoPreview">
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -112,10 +113,23 @@
 
         ckEditor.setData([[${article != null}?${article.content}]]);
 
+        var photos = [[${article.photo}]];
+        if(photos!=''){
+            $("div #photoPreview ").empty();
+            var img = photos.split(';');
+            for(var i=0; i<img.length; i++){
+                $("div #photoPreview ").append('<img src="'+ img[i] +'" class="img-responsive" width="461px" height="" style="margin-top:5px">');
+            }
+        }
+
         //图片预览
         function previewImage(data){
             //alert(data.value);
-            $("#photoPreview").attr("src", data.value);
+            $("div #photoPreview ").empty();
+            var img = data.value.split(';');
+            for(var i=0; i<img.length; i++){
+                $("div #photoPreview ").append('<img src="'+ img[i] +'" class="img-responsive" width="461px" height="" style="margin-top:5px">');
+            }
         }
 
         //bootstrap tagsinput使用

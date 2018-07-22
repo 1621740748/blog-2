@@ -258,6 +258,9 @@
       <if test="tagId != null" >
         tag_id = #{tagId,jdbcType=INTEGER},
       </if>
+        <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
