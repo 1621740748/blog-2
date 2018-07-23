@@ -80,6 +80,7 @@ public class FrontstageArticleController {
             model.addAttribute("page", info);
             model.addAttribute("category", category);
             model.addAttribute("articleList", articleList);
+            commonPageContent(model);
             //int a = 1/0;
         } catch (Exception e) {
 //            System.out.println("test");
@@ -100,6 +101,7 @@ public class FrontstageArticleController {
         model.addAttribute("nextArticle", nextArticle);
         List<BlogTag> listTag = tagService.getTagsByArticleId(id);
         model.addAttribute("tags", listTag);
+        commonPageContent(model);
         return "frontstage/info";
     }
 
@@ -137,7 +139,7 @@ public class FrontstageArticleController {
         return "frontstage/time";
     }
 
-    @ApiOperation("时间轴")
+    @ApiOperation("留言")
     @RequestMapping(value = "/comment", method = RequestMethod.GET)
     public String comment(){
         return "frontstage/comment";
