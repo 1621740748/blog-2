@@ -51,5 +51,13 @@ public interface ArticleService {
      * @return
      */
     Article getNext(int id, Integer categoryId);
+
+    List<Article> getContentHeader();
+
+    List<Article> getSpecialRecommend();
+
+    List<Article> getRecommendArticle();
+
+    List<Article> getArticleByClick();
 }
 

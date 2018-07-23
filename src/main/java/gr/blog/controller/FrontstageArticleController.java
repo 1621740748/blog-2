@@ -49,6 +49,10 @@ public class FrontstageArticleController {
             PageInfo<Article> info = new PageInfo<>(articleList);
             model.addAttribute("page", info);
             model.addAttribute("articleList", articleList);
+            //获取页面需要的首部信息
+            List<Article> header = articleService.getContentHeader();
+            model.addAttribute("header", header);
+            commonPageContent(model);
         } catch (Exception e) {
             e.printStackTrace();
             throw new FontException(e.getMessage());
@@ -97,6 +101,28 @@ public class FrontstageArticleController {
         List<BlogTag> listTag = tagService.getTagsByArticleId(id);
         model.addAttribute("tags", listTag);
         return "frontstage/info";
+    }
+
+    /**
+     * 公共页面信息查询 ，公共方法，需要引入公共界面的方法需要引入它
+     * -- 每页首部  推荐的文章 按id倒序 取其中喜欢数最多的五篇文章
+     * -- 特別推荐  就是推荐文章中点击量最大的三个
+     * -- 推荐文章  就是正常推荐文章按id倒叙前五
+     * -- 点击排行  按点击量排序
+     * @param model
+     */
+    private void commonPageContent(ModelMap model){
+
+        //获取页面需要的特别推荐信息
+        List<Article> special = articleService.getSpecialRecommend();
+        model.addAttribute("special", special);
+        //获取推荐文章
+        List<Article> recommend  = articleService.getRecommendArticle();
+        model.addAttribute("recommend", recommend);
+        //按点击排行获取信息
+        List<Article> click = articleService.getArticleByClick();
+        model.addAttribute("click", click);
+
     }
 
     @ApiOperation("关于我")

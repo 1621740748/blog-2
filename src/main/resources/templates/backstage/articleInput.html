@@ -113,7 +113,7 @@
 
         ckEditor.setData([[${article != null}?${article.content}]]);
 
-        var photos = [[${article.photo}]];
+        var photos = [[${article != null?article.photo:''}]];
         if(photos!=''){
             $("div #photoPreview ").empty();
             var img = photos.split(';');

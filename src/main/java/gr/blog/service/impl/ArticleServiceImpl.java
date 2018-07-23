@@ -78,4 +78,24 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getNext(int id, Integer categoryId) {
         return articleMapper.getNext(id, categoryId);
     }
+
+    @Override
+    public List<Article> getContentHeader() {
+        return articleMapper.getContentHeader();
+    }
+
+    @Override
+    public List<Article> getSpecialRecommend() {
+        return articleMapper.getSpecialRecommend();
+    }
+
+    @Override
+    public List<Article> getRecommendArticle() {
+        return articleMapper.getRecommendArticle();
+    }
+
+    @Override
+    public List<Article> getArticleByClick() {
+        return articleMapper.getArticleByClick();
+    }
 }

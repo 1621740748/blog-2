@@ -27,12 +27,12 @@
 </header>
 <article> 
   <!--banner begin-->
- <div class="picsbox"> 
+ <div class="picsbox" th:if="${header.size() != 0}">
   <div class="banner">
     <div id="banner" class="fader">
-      <li class="slide" ><a href="/" target="_blank"><img src="/yangqq/images/banner01.jpg"><span class="imginfo">别让这些闹心的套路，毁了你的网页设计!</span></a></li>
-      <li class="slide" ><a href="/" target="_blank"><img src="/yangqq/images/banner02.jpg"><span class="imginfo">网页中图片属性固定宽度，如何用js改变大小</span></a></li>
-      <li class="slide" ><a href="/" target="_blank"><img src="/yangqq/images/banner03.jpg"><span class="imginfo">个人博客，属于我的小世界！</span></a></li>
+      <li class="slide" th:if="${header.size() > 0}"><a th:href="'/detail/' + ${header[0].id}" target="_blank"><img th:src="${#strings.arraySplit(header[0].photo, ';')[0]}"><span class="imginfo" th:text="${header[0].title}">别让这些闹心的套路，毁了你的网页设计!</span></a></li>
+      <li class="slide" th:if="${header.size() > 1}"><a th:href="'/detail/' + ${header[1].id}" target="_blank"><img th:src="${#strings.arraySplit(header[1].photo, ';')[0]}"><span class="imginfo" th:text="${header[1].title}">别让这些闹心的套路，毁了你的网页设计!</span></a></li>
+      <li class="slide" th:if="${header.size() > 2}"><a th:href="'/detail/' + ${header[2].id}" target="_blank"><img th:src="${#strings.arraySplit(header[2].photo, ';')[0]}"><span class="imginfo" th:text="${header[2].title}">别让这些闹心的套路，毁了你的网页设计!</span></a></li>
       <div class="fader_controls">
         <div class="page prev" data-target="prev">&lsaquo;</div>
         <div class="page next" data-target="next">&rsaquo;</div>
@@ -43,12 +43,12 @@
   </div>
   <!--banner end-->
   <div class="toppic">
-    <li> <a href="/" target="_blank"> <i><img src="/yangqq/images/toppic01.jpg"></i>
-      <h2>别让这些闹心的套路，毁了你的网页设计!</h2>
-      <span>学无止境</span> </a> </li>
-    <li> <a href="/" target="_blank"> <i><img src="/yangqq/images/zd01.jpg"></i>
-      <h2>个人博客，属于我的小世界！</h2>
-      <span>学无止境</span> </a> </li>
+    <li th:if="${header.size() > 3}"> <a th:href="'/detail/' + ${header[3].id}" target="_blank"> <i><img th:src="${#strings.arraySplit(header[3].photo, ';')[0]}"></i>
+      <h2 th:text="${header[3].title}">别让这些闹心的套路，毁了你的网页设计!</h2>
+      <span th:text="${header[3].blogCategory.categoryName}">学无止境</span> </a> </li>
+    <li th:if="${header.size() > 4}"> <a th:href="'/detail/' + ${header[4].id}" target="_blank"> <i><img th:src="${#strings.arraySplit(header[4].photo, ';')[0]}"></i>
+      <h2 th:text="${header[4].title}">别让这些闹心的套路，毁了你的网页设计!</h2>
+      <span th:text="${header[4].blogCategory.categoryName}">学无止境</span> </a> </li>
   </div>
   </div>
   <div class="blank"></div>

@@ -30,4 +30,12 @@ public interface ArticleMapper {
     Article getPre(@Param("id") int id, @Param("categoryId") Integer categoryId);
 
     Article getNext(@Param("id") int id, @Param("categoryId") Integer categoryId);
+
+    List<Article> getContentHeader();
+
+    List<Article> getSpecialRecommend();
+
+    List<Article> getRecommendArticle();
+
+    List<Article> getArticleByClick();
 }

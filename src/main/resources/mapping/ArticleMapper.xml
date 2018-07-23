@@ -129,6 +129,41 @@
     limit 1
   </select>
 
+  <select id="getContentHeader" resultMap="ResultMapWithCategory">
+    select
+    t1.*, t3.category_name
+    from blog_article t1 left join (select count(*) c ,article_id from blog_visitor_record where love='1' group by article_id) t2 on t2.article_id = t1.id left join blog_category t3 on t3.id = t1.category_id
+    where t1.is_recommend = '1'
+    order by t2.c asc
+    limit 5
+  </select>
+
+  <select id="getSpecialRecommend" resultMap="BaseResultMap">
+  select
+  *
+  from blog_article
+  where is_recommend = '1'
+  order by click_count asc
+  limit 3
+</select>
+
+  <select id="getRecommendArticle" resultMap="BaseResultMap">
+    select
+    *
+    from blog_article
+    where is_recommend = '1'
+    order by id asc
+    limit 5
+  </select>
+
+  <select id="getArticleByClick" resultMap="BaseResultMap">
+    select
+    *
+    from blog_article
+    order by click_count asc
+    limit 5
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_article
     where id = #{id,jdbcType=INTEGER}
