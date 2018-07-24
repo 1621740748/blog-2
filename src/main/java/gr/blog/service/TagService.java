@@ -3,6 +3,7 @@ package gr.blog.service;
 import gr.blog.model.BlogTag;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TagService {
 
@@ -21,4 +22,6 @@ public interface TagService {
     void updateRecordByIdAndTagname(Integer ArticleId, String[] tags);
 
     List<BlogTag> getTagsByArticleId(Integer ArticleId);
+
+    List<Map<String, Object>> getCloud();
 }

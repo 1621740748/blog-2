@@ -124,7 +124,9 @@ public class FrontstageArticleController {
         //按点击排行获取信息
         List<Article> click = articleService.getArticleByClick();
         model.addAttribute("click", click);
-
+        //标签云
+        List<Map<String, Object>> tagsCloud = tagService.getCloud();
+        model.addAttribute("tagsCloud", tagsCloud);
     }
 
     @ApiOperation("关于我")

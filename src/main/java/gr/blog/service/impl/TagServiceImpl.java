@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service("tagService")
 public class TagServiceImpl implements TagService {
@@ -45,5 +46,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<BlogTag> getTagsByArticleId(Integer ArticleId) {
         return blogTagMapper.selectByArticleId(ArticleId);
+    }
+
+    @Override
+    public List<Map<String, Object>> getCloud() {
+        return blogTagMapper.getCloud();
     }
 }

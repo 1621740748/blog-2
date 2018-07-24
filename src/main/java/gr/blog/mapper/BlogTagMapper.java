@@ -3,6 +3,7 @@ package gr.blog.mapper;
 import gr.blog.model.BlogTag;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BlogTagMapper {
     int deleteByPrimaryKey(Integer id);
@@ -22,4 +23,6 @@ public interface BlogTagMapper {
     List<BlogTag> selectByArticleId(Integer ArticleId);
 
     void deleteByArticleKey(Integer articleId);
+
+    List<Map<String, Object>> getCloud();
 }

@@ -19,6 +19,14 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
+    <select id="getCloud" resultType="java.util.Map">
+        SELECT count(1) c, tag_name
+        FROM blog.blog_tag
+        group by tag_name
+        order by c desc
+        limit 8;
+    </select>
+
     <select id="selectByArticleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
         <include refid="Base_Column_List" />
