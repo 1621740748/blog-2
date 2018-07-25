@@ -40,7 +40,41 @@
     </div>
     <!--search end-->
 </nav>
-
+<div th:fragment="mnav">
+    <h2><a href="http://jzyblog.top" class="mlogo">杨青博客</a><span class="navicon"></span></h2>
+    <dl class="list_dl">
+    <dt class="list_dt"> <a href="/index">网站首页</a> </dt>
+    <dt class="list_dt"> <a href="/about.html">关于我</a> </dt>
+    <dt class="list_dt"> <a href="#">模板分享</a> </dt>
+    <dd class="list_dd">
+        <ul>
+            <li><a href="/category/4/">个人博客模板</a></li>
+            <li><a href="/category/5/">国外Html5模板</a></li>
+            <li><a href="/category/6/">企业网站模板</a></li>
+        </ul>
+    </dd>
+    <dt class="list_dt"> <a href="#">学无止境</a> </dt>
+    <dd class="list_dd">
+        <ul>
+            <li><a href="/category/7/">C/C++</a></li>
+            <li><a href="/category/8/">CSS3|H5|JS</a></li>
+            <li><a href="/category/9/">Java</a></li>
+            <li><a href="/category/10/">Python</a></li>
+        </ul>
+    </dd>
+    <dt class="list_dt"> <a href="#">慢生活</a> </dt>
+    <dd class="list_dd">
+        <ul>
+            <li><a href="/category0/11/">个人日记</a></li>
+            <li><a href="/category/12/">美图欣赏</a></li>
+            <li><a href="/category/13/">程序人生</a></li>
+            <li><a href="/category/14/">经典语录</a></li>
+        </ul>
+    </dd>
+    <dt class="list_dt"> <a href="/time.html">时间轴</a> </dt>
+    <dt class="list_dt"> <a href="/comment.html">留言</a> </dt>
+</dl>
+</div>
 <!-- 右侧推荐区 -->
 <div th:fragment="sidebar">
 <div class="zhuanti" th:if="${special.size() != 0}">

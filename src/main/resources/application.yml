@@ -71,7 +71,7 @@ thymeleaf:
 # Comma-separated list of view names that should be excluded from resolution.
     excluded-view-names:
 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
-    mode: HTML5
+    mode: HTML
 # Prefix that gets prepended to view names when building a URL.
     prefix: classpath:/templates/
 # Suffix that gets appended to view names when building a URL.

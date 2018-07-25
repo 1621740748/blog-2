@@ -27,6 +27,7 @@
     <!--menu begin-->
     <div class="menu" th:insert="common/html/front::header"></div>
     <!--menu end-->
+    <div id="mnav" th:include="common/html/front::mnav"></div>
 </header>
 <article>
   <h1 class="t_nav"><span>您现在的位置是：首页 > 慢生活 > 程序人生</span><a href="/" class="n1">网站首页</a><a href="/" class="n2" th:text="${article.blogCategory.categoryName}"></a></h1>

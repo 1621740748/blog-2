@@ -39,9 +39,14 @@ public class ShiroConfiguration {
         map.put("/back/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
-        //首页
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        //登录成功跳转界面
+        shiroFilterFactoryBean.setSuccessUrl("/back/index");
+
+        //没有权限跳转界面
+        shiroFilterFactoryBean.setUnauthorizedUrl("");
+        //过滤条件
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+
         return shiroFilterFactoryBean;
     }
 }
