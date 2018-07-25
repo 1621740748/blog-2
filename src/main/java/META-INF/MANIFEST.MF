@@ -1,38 +1,43 @@
 Manifest-Version: 1.0
-Class-Path: logback-core-1.1.11.jar jackson-datatype-joda-2.8.9.jar sp
- ring-boot-starter-web-1.5.6.RELEASE.jar jboss-logging-3.3.1.Final.jar
-  aspectjweaver-1.8.10.jar spring-expression-4.3.10.RELEASE.jar thymel
- eaf-expression-processor-1.1.2.jar spring-boot-starter-jdbc-1.5.6.REL
- EASE.jar springfox-spring-web-2.2.2.jar mybatis-spring-boot-autoconfi
- gure-1.3.0.jar tools.jar slf4j-api-1.7.25.jar mysql-connector-java-5.
- 1.35.jar spring-webmvc-4.3.10.RELEASE.jar ckeditor-java-core-3.5.3.ja
- r thymeleaf-spring4-3.0.2.RELEASE.jar thymeleaf-layout-dialect-2.0.5.
- jar spring-boot-starter-logging-1.5.6.RELEASE.jar spring-plugin-core-
- 1.2.0.RELEASE.jar springfox-swagger-common-2.2.2.jar tomcat-jdbc-8.5.
- 16.jar pagehelper-spring-boot-starter-1.1.2.jar swagger-annotations-1
- .5.3.jar spring-boot-starter-thymeleaf-1.5.6.RELEASE.jar jackson-anno
- tations-2.8.0.jar spring-tx-4.3.10.RELEASE.jar spring-boot-starter-1.
- 5.6.RELEASE.jar mybatis-3.4.4.jar mybatis-spring-1.3.1.jar springfox-
- core-2.2.2.jar mybatis-spring-boot-starter-1.3.0.jar spring-hateoas-0
- .23.0.RELEASE.jar joda-time-2.9.9.jar spring-web-4.3.10.RELEASE.jar j
- sqlparser-1.0.jar pagehelper-5.0.3.jar snakeyaml-1.17.jar jackson-cor
- e-2.8.9.jar druid-1.1.0.jar tomcat-embed-websocket-8.5.16.jar jackson
- -module-parameter-names-2.8.9.jar springfox-spi-2.2.2.jar unbescape-1
- .1.4.RELEASE.jar attoparser-2.0.1.RELEASE.jar jcl-over-slf4j-1.7.25.j
- ar springfox-swagger-ui-2.2.2.jar springfox-swagger2-2.2.2.jar hibern
- ate-validator-5.3.5.Final.jar spring-boot-devtools-1.5.6.RELEASE.jar 
- druid-spring-boot-starter-1.1.0.jar jconsole.jar logback-classic-1.1.
- 11.jar tomcat-embed-core-8.5.16.jar spring-boot-starter-tomcat-1.5.6.
- RELEASE.jar spring-jdbc-4.3.10.RELEASE.jar spring-boot-1.5.6.RELEASE.
- jar groovy-2.4.12.jar spring-boot-autoconfigure-1.5.6.RELEASE.jar spr
- ing-context-4.3.10.RELEASE.jar fastjson-1.2.47.jar swagger-models-1.5
- .3.jar spring-beans-4.3.10.RELEASE.jar jul-to-slf4j-1.7.25.jar pagehe
- lper-spring-boot-autoconfigure-1.1.2.jar aspectjrt-1.8.10.jar mapstru
- ct-1.0.0.CR1.jar log4j-over-slf4j-1.7.25.jar commons-fileupload-1.3.1
- .jar classmate-1.3.3.jar commons-io-2.5.jar springfox-schema-2.2.2.ja
- r spring-plugin-metadata-1.2.0.RELEASE.jar tomcat-juli-8.5.16.jar spr
- ing-aop-4.3.10.RELEASE.jar thymeleaf-3.0.2.RELEASE.jar guava-18.0.jar
-  spring-core-4.3.10.RELEASE.jar tomcat-embed-el-8.5.16.jar validation
- -api-1.1.0.Final.jar jackson-databind-2.8.9.jar
+Class-Path: commons-collections-3.2.2.jar pagehelper-5.0.3.jar classma
+ te-1.3.3.jar shiro-crypto-cipher-1.4.0.jar mysql-connector-java-5.1.3
+ 5.jar unbescape-1.1.4.RELEASE.jar tomcat-embed-el-8.5.16.jar joda-tim
+ e-2.9.9.jar spring-beans-4.3.10.RELEASE.jar jackson-core-2.8.9.jar sp
+ ring-boot-autoconfigure-1.5.6.RELEASE.jar thymeleaf-spring4-3.0.2.REL
+ EASE.jar snakeyaml-1.17.jar tomcat-embed-websocket-8.5.16.jar mybatis
+ -spring-boot-autoconfigure-1.3.0.jar thymeleaf-expression-processor-1
+ .1.2.jar jsqlparser-1.0.jar spring-hateoas-0.23.0.RELEASE.jar commons
+ -io-2.5.jar log4j-over-slf4j-1.7.25.jar spring-core-4.3.10.RELEASE.ja
+ r mybatis-3.4.4.jar logback-core-1.1.11.jar mybatis-spring-boot-start
+ er-1.3.0.jar mapstruct-1.0.0.CR1.jar jcl-over-slf4j-1.7.25.jar aspect
+ jweaver-1.8.10.jar shiro-spring-1.4.0.jar attoparser-2.0.1.RELEASE.ja
+ r spring-boot-starter-1.5.6.RELEASE.jar spring-boot-starter-tomcat-1.
+ 5.6.RELEASE.jar shiro-web-1.4.0.jar spring-boot-1.5.6.RELEASE.jar shi
+ ro-crypto-hash-1.4.0.jar pagehelper-spring-boot-starter-1.1.2.jar spr
+ ing-boot-starter-jdbc-1.5.6.RELEASE.jar druid-1.1.0.jar commons-beanu
+ tils-1.9.3.jar jboss-logging-3.3.1.Final.jar spring-context-4.3.10.RE
+ LEASE.jar shiro-event-1.4.0.jar ckeditor-java-core-3.5.3.jar groovy-2
+ .4.12.jar springfox-swagger-ui-2.2.2.jar jackson-annotations-2.8.0.ja
+ r springfox-core-2.2.2.jar spring-webmvc-4.3.10.RELEASE.jar guava-18.
+ 0.jar springfox-schema-2.2.2.jar spring-boot-starter-web-1.5.6.RELEAS
+ E.jar mybatis-spring-1.3.1.jar tomcat-jdbc-8.5.16.jar jackson-databin
+ d-2.8.9.jar shiro-lang-1.4.0.jar thymeleaf-layout-dialect-2.0.5.jar s
+ hiro-cache-1.4.0.jar tomcat-juli-8.5.16.jar jackson-module-parameter-
+ names-2.8.9.jar spring-aop-4.3.10.RELEASE.jar hibernate-validator-5.3
+ .5.Final.jar shiro-core-1.4.0.jar tools.jar springfox-swagger2-2.2.2.
+ jar logback-classic-1.1.11.jar spring-plugin-core-1.2.0.RELEASE.jar s
+ hiro-config-core-1.4.0.jar swagger-annotations-1.5.3.jar shiro-crypto
+ -core-1.4.0.jar fastjson-1.2.47.jar spring-jdbc-4.3.10.RELEASE.jar sp
+ ring-tx-4.3.10.RELEASE.jar swagger-models-1.5.3.jar thymeleaf-3.0.2.R
+ ELEASE.jar slf4j-api-1.7.25.jar pagehelper-spring-boot-autoconfigure-
+ 1.1.2.jar commons-fileupload-1.3.1.jar spring-boot-starter-thymeleaf-
+ 1.5.6.RELEASE.jar aspectjrt-1.8.10.jar springfox-spring-web-2.2.2.jar
+  springfox-spi-2.2.2.jar validation-api-1.1.0.Final.jar jul-to-slf4j-
+ 1.7.25.jar druid-spring-boot-starter-1.1.0.jar tomcat-embed-core-8.5.
+ 16.jar jconsole.jar spring-plugin-metadata-1.2.0.RELEASE.jar springfo
+ x-swagger-common-2.2.2.jar shiro-config-ogdl-1.4.0.jar spring-boot-st
+ arter-logging-1.5.6.RELEASE.jar spring-expression-4.3.10.RELEASE.jar 
+ spring-boot-devtools-1.5.6.RELEASE.jar spring-web-4.3.10.RELEASE.jar 
+ jackson-datatype-joda-2.8.9.jar
 Main-Class: gr.blog.controller.Main
 
