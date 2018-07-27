@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * shiro 用户认证 授权
  */
-public class MyShiroRealm extends AuthorizingRealm {
+public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
     private LoginService loginService;
@@ -37,7 +37,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (user == null){
             return null;//这里返回null，表示该用户名不存在，和上一个null都是触发shiro产生UnknownAccountException异常，也就是账户异常
         }
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(userName, user.getPassword(), getName());
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(), getName());
         return simpleAuthenticationInfo;
     }
 }

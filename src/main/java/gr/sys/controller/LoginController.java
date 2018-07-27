@@ -22,24 +22,4 @@ public class LoginController {
     public String login(){
         return "backstage/login";
     }
-
-    @ApiOperation("正式登录过程")
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String login(SysUser user, ModelMap modelMap){
-        System.out.println(user);
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
-        Subject subject = SecurityUtils.getSubject();
-        try {
-            subject.login(token);
-        }catch (UnknownAccountException e){
-            modelMap.put("msg","账户名不正确");//前台输入的用户名为空或者用户名在数据库中不存在
-        return "error/shiro";
-    }catch (IncorrectCredentialsException e){
-        modelMap.put("msg","密码不正确");
-        return "error/shiro";
-    }catch (AuthenticationException e){
-        e.printStackTrace();
-    }
-        return "backstage/login";
-    }
 }
