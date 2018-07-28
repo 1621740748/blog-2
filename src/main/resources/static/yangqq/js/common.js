@@ -36,8 +36,9 @@
 
     /*mnav dl open*/
     var oH2 = document.getElementsByTagName('h2')[0];
+    var oH3 = document.getElementById('navicon');
     var oUl = document.getElementsByTagName('dl')[0];
-    oH2.onclick = function () {
+    oH3.onclick = function () {
         var style = oUl.style;
         style.display = style.display == 'block' ? 'none' : 'block';
         oH2.className = style.display == 'block' ? 'open' : '';
