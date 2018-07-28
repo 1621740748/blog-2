@@ -29,7 +29,7 @@ public class ShiroRealm extends AuthorizingRealm {
     public AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         Object principal = authenticationToken.getPrincipal();
         if (principal == null) {
-            System.out.println("ahah");
+            //System.out.println("ahah");
             return null;//这里返回null，shiro控制器根据返回的null判断，用户名有误，产生UnknownAccountException用户名出错异常，一般不会出现这个错误，因为前台和后台校验不允许出现空用户名
         }
         String userName = principal.toString();

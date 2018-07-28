@@ -65,6 +65,7 @@
     <script src="/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="/js/plugins/pace.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/bootstrap-notify.min.js"></script>
     <script type="text/javascript">
       // Login Page Flipbox control
       $('.login-content [data-toggle="flip"]').click(function() {
@@ -72,5 +73,17 @@
       	return false;
       });
     </script>
+  <script type="text/javascript" th:inline="javascript">
+    var error = [[${error != null}?${error}:'']];
+    if(error != ''){
+       $.notify({
+      		title: "登录失败 : ",
+      		message: error,
+      		icon: 'fa fa-info-circle'
+      	},{
+      		type: "danger"
+      	});
+    }
+  </script>
   </body>
 </html>

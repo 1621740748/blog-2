@@ -66,7 +66,7 @@ public class ShiroConfiguration {
         // 配置登录的url和登录成功的url
 
         bean.setLoginUrl("/login");
-        bean.setSuccessUrl("123456successPage");
+        bean.setSuccessUrl("/back");
 
         // 定义过滤器
         Map<String, Filter> filterMap = bean.getFilters();
