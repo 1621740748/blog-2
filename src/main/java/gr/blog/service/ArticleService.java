@@ -59,5 +59,27 @@ public interface ArticleService {
     List<Article> getRecommendArticle();
 
     List<Article> getArticleByClick();
+
+    /**
+     * 获得文章喜欢数
+     * @param id
+     * @return
+     */
+    int getLikeCount(int id);
+
+    /**
+     * 判断当前ip是否喜欢过当前文章了
+     * @param ArticleId
+     * @param ip
+     * @return true 表示已经喜欢过了，false 表示没喜欢过
+     */
+    boolean isLiked(Integer ArticleId, String ip);
+
+    /**
+     * 增加一个喜欢
+     * @param articleId
+     * @param ip
+     */
+    void addLike(Integer articleId, String ip);
 }
 

@@ -49,7 +49,7 @@
 
   <cache eviction="LRU" flushInterval="5000" size="10000"/>
 
-  <!-- 分页查询 -->
+  <!-- 分页查询,前后台公用这一个sql，后期有需要还可能会拆开 -->
   <select id="getAllArticle" resultMap="ResultMapWithCategory" parameterType="java.util.Map" useCache="true">
     select
     t1.id, title, t1.description, click_count, is_recommend, date_publish, author_id, category_id,
@@ -112,6 +112,14 @@
     where t1.id = #{id,jdbcType=INTEGER} and t1.category_id = t2.id
   </select>
 
+  <select id="getLikeCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) love from blog_visitor_record where article_id = #{id, jdbcType=INTEGER} and love = '1'
+  </select>
+
+  <select id="isLiked" resultType="java.lang.Integer">
+    select count(love) from blog_visitor_record where article_id = #{articleId,jdbcType=INTEGER} and ip = #{userIp,jdbcType=INTEGER} and love = '1';
+  </select>
+
   <select id="getPre" resultMap="BaseResultMap">
     select *
     from blog_article
@@ -129,12 +137,13 @@
     limit 1
   </select>
 
+  <!-- 前台首页轮播三个 加右侧两个两个文章 按喜欢数量排序 -->
   <select id="getContentHeader" resultMap="ResultMapWithCategory">
     select
     t1.*, t3.category_name
     from blog_article t1 left join (select count(*) c ,article_id from blog_visitor_record where love='1' group by article_id) t2 on t2.article_id = t1.id left join blog_category t3 on t3.id = t1.category_id
     where t1.is_recommend = '1'
-    order by t2.c asc
+    order by t2.c desc
     limit 5
   </select>
 
@@ -265,6 +274,10 @@
     insert into blog_visitor_record(article_id, ip) select #{articleId,jdbcType=INTEGER}, #{userIp,jdbcType=VARCHAR} from dual where not exists (select * from blog_visitor_record where ip=#{userIp,jdbcType=VARCHAR} and article_id=#{articleId,jdbcType=INTEGER});
     update blog_article set click_count = (select count(*) from blog_visitor_record where article_id=#{articleId,jdbcType=INTEGER}) where id = #{articleId,jdbcType=INTEGER};
   </insert>
+
+  <update id="addLike">
+    update blog_visitor_record set love = '1' where ip=#{userIp,jdbcType=VARCHAR} and article_id=#{articleId,jdbcType=INTEGER};
+  </update>
 
   <update id="updateByPrimaryKeySelective" parameterType="gr.blog.model.Article" >
     update blog_article

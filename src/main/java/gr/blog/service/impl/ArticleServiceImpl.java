@@ -98,4 +98,28 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getArticleByClick() {
         return articleMapper.getArticleByClick();
     }
+
+    @Override
+    public int getLikeCount(int id) {
+        return articleMapper.getLikeCount(id);
+    }
+
+    @Override
+    public boolean isLiked(Integer ArticleId, String remoteAddr) {
+        if(articleMapper.isLiked(ArticleId, remoteAddr) != 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 增加一个喜欢
+     *
+     * @param articleId
+     * @param ip
+     */
+    @Override
+    public void addLike(Integer articleId, String ip) {
+        articleMapper.addLike(articleId, ip);
+    }
 }

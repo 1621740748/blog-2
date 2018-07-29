@@ -38,4 +38,10 @@ public interface ArticleMapper {
     List<Article> getRecommendArticle();
 
     List<Article> getArticleByClick();
+
+    int getLikeCount(int id);
+
+    int isLiked(@Param("articleId") int articleId, @Param("userIp") String userIp);
+
+    void addLike(@Param("articleId") int articleId, @Param("userIp") String userIp);
 }

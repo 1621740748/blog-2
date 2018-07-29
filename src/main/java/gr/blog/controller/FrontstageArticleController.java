@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -99,7 +100,10 @@ public class FrontstageArticleController {
         Article article = articleService.get(id);
         articleService.addCkickCount(id, request.getRemoteAddr());//增加一个点击量
         String subdivision = ipAddressUtils.getSubdivision(request.getRemoteAddr());
-        System.out.println(subdivision);
+        //System.out.println(subdivision);
+
+        int count = articleService.getLikeCount(id);
+        model.addAttribute("likeNum", count);
         model.addAttribute("article", article);
         Article preArticle = articleService.getPre(id, article.getCategoryId());
         model.addAttribute("preArticle", preArticle);
@@ -107,8 +111,22 @@ public class FrontstageArticleController {
         model.addAttribute("nextArticle", nextArticle);
         List<BlogTag> listTag = tagService.getTagsByArticleId(id);
         model.addAttribute("tags", listTag);
+
+
         commonPageContent(model);
         return "frontstage/info";
+    }
+
+    @RequestMapping("/updateLike/{id}")
+    @ResponseBody
+    public String updateLike(@PathVariable("id") Integer id, HttpServletRequest request){
+        boolean like = articleService.isLiked(id, request.getRemoteAddr());//like为false表示没有喜欢过，为true表示喜欢过
+        if (like){
+            return "-1";
+        }else{
+            articleService.addLike(id, request.getRemoteAddr());
+            return Integer.toString(articleService.getLikeCount(id));
+        }
     }
 
     /**

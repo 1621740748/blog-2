@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="share">
-      <p class="diggit"><a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(<b id="diggnum"><script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>13</b>)</p>
+      <p class="diggit"><a th:href="'JavaScript:makeRequest(' +${article.id}+ ');'"> 很赞哦！ </a>(<b id="diggnum" th:text="${likeNum}">13</b>)</p>
       <p class="dasbox"><a href="javascript:void(0)" onClick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏本站</a></p>
       <div class="hide_box"></div>
       <div class="shang_box"> <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭">关闭</a>
@@ -105,7 +105,6 @@
             conf: 'prod_f5c0ff962e6962d18de6d0bff9404b4c'
             });
           </script>
-          <script>hljs.initHighlightingOnLoad();</script>
       </ul>
     </div>
   </div>
@@ -114,5 +113,22 @@
 </article>
 <footer th:insert="common/html/front::footer"></footer>
 <a href="#" class="cd-top">Top</a>
+<script>
+  hljs.initHighlightingOnLoad();
+
+  function makeRequest(articleId){
+    $.get("/updateLike/" + articleId, function(data, status){
+      //alert(status);
+      //alert(data);
+      if(data == '-1'){//表示喜欢过了
+        alert("您已经喜欢过了");
+      }else{
+        //alert("感谢");
+        $("#diggnum").text(data);
+      }
+    });
+  }
+
+</script>
 </body>
 </html>
