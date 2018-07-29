@@ -117,7 +117,7 @@ public class FrontstageArticleController {
         return "frontstage/info";
     }
 
-    @RequestMapping("/updateLike/{id}")
+    @RequestMapping(value = "/updateLike/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String updateLike(@PathVariable("id") Integer id, HttpServletRequest request){
         boolean like = articleService.isLiked(id, request.getRemoteAddr());//like为false表示没有喜欢过，为true表示喜欢过
