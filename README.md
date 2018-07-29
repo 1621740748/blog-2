@@ -8,7 +8,7 @@ bootstrap+springboot博客最简单实现
 
 ## 1 集成了mybatis+thymeleaf
 ## 2 集成了swagger2（访问路径http://localhost/swagger-ui.html#/）
-![图片丢失了](http://img2.ph.126.net/RaeQv35WF9IgwpwsL7BDMQ==/6597833927240228867.jpg)
+![图片丢失了](http://img1.ph.126.net/q5Klr70mZG6pHuwl0rZfXw==/6597833927240228866.jpg)
 ## 3 资源访问：
 ### 1 前台访问路径：http://localhost/
 ### 2 后台访问路径：http://localhost/back/
