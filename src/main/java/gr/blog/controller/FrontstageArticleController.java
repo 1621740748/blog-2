@@ -117,6 +117,7 @@ public class FrontstageArticleController {
         return "frontstage/info";
     }
 
+    @ApiOperation("根据文章id修改喜欢数 并将修改后的结果返回给前台")
     @RequestMapping(value = "/updateLike/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String updateLike(@PathVariable("id") Integer id, HttpServletRequest request){

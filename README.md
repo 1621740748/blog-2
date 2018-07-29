@@ -8,7 +8,7 @@ bootstrap+springboot博客最简单实现
 
 ## 1 集成了mybatis+thymeleaf
 ## 2 集成了swagger2（访问路径http://localhost/swagger-ui.html#/）
-![图片丢失了](http://i1.bvimg.com/652887/e1072e3dfa343f5f.png)
+![图片丢失了](http://img2.ph.126.net/RaeQv35WF9IgwpwsL7BDMQ==/6597833927240228867.jpg)
 ## 3 资源访问：
 ### 1 前台访问路径：http://localhost/
 ### 2 后台访问路径：http://localhost/back/
@@ -141,4 +141,4 @@ config.image_previewText = '图片最大宽度最好设置为760px';
 
 3 最后返回根据第二步中的结果，如果没喜欢过，就先曾加一次喜欢addLike， 然后再查询一次喜欢数，将喜欢数返回给前端，如果喜欢过，则返会前端-1.前台进行判断进行相应的修改或提示用户。
 
-## 12 下一个功能  增加ip归属地，这个功能只是后台统计时使用， 相关api已接入，待功能完善
+## 12  下一个功能  增加ip归属地，这个功能只是后台统计时使用， 相关api已接入，待功能完善
