@@ -62,7 +62,7 @@
 <aside class="app-sidebar" th:fragment="sidebar">
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/img/avatar.png" alt="User Image"></img>
         <div>
-            <p class="app-sidebar__user-name">蒋中英</p>
+            <p class="app-sidebar__user-name"><shiro:principal/></p>
             <p class="app-sidebar__user-designation">Java Developer</p>
         </div>
     </div>
