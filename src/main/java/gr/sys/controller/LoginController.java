@@ -29,8 +29,12 @@ public class LoginController {
     @ApiOperation("实际登录过程，只需要处理错误就好，登录交给shiro完成")
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(ModelMap modelMap, HttpServletRequest request){
-        String errorClassName = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME).toString();
-        if(UnknownAccountException.class.getName().equals(errorClassName)) {
+        String errorClassName = (String)request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
+
+        if (errorClassName == null){
+            //登录过，不用重复登录
+            return "redirect:/back";
+        } else if(UnknownAccountException.class.getName().equals(errorClassName)) {
             modelMap.put("error", "用户名/密码错误");
         } else if(IncorrectCredentialsException.class.getName().equals(errorClassName)) {
             modelMap.put("error", "用户名/密码错误");

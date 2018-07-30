@@ -15,5 +15,4 @@ import javax.servlet.ServletResponse;
  * 毕竟可能后期可能需要在过滤的时候添加一些什么功能
  */
 public class ShiroLoginFilter extends FormAuthenticationFilter {
-
 }
