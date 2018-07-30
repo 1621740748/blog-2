@@ -4,6 +4,7 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -24,7 +25,6 @@ public class ShiroConfiguration {
     // 配置核心安全事务管理器
     @Bean(name = "securityManager")
     public SecurityManager securityManager(@Qualifier("shiroRealm") ShiroRealm shiroRealm) {
-        System.err.println("--------------shiro已经加载----------------");
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(shiroRealm);
 //        manager.setSessionManager(sessionManager);
@@ -40,7 +40,21 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    public FilterRegistrationBean shiroLoginFilteRegistration(ShiroLoginFilter filter) {
+    public LogoutFilter logoutFilter(){
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setRedirectUrl("/login");
+        return logoutFilter;
+    }
+
+    @Bean
+    public FilterRegistrationBean shiroLoginFilteRegistration(LogoutFilter filter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean(filter);
+        registration.setEnabled(false);
+        return registration;
+    }
+
+    @Bean
+    public FilterRegistrationBean shiroLogoutFilteRegistration(ShiroLoginFilter filter) {
         FilterRegistrationBean registration = new FilterRegistrationBean(filter);
         registration.setEnabled(false);
         return registration;
@@ -59,19 +73,16 @@ public class ShiroConfiguration {
      */
     @Bean
     public ShiroFilterFactoryBean shirFilter(@Qualifier("securityManager") SecurityManager manager){
-
-        System.out.println("  。。。。shirFilter。。。。。。 ");
-
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
         // 配置登录的url和登录成功的url
-
         bean.setLoginUrl("/login");
         bean.setSuccessUrl("/back");
 
         // 定义过滤器
         Map<String, Filter> filterMap = bean.getFilters();
         filterMap.put("authc", shiroLoginFilter());
+        filterMap.put("logout", logoutFilter());//主要目的就是为了设置退出后跳转目录
         //filterMap.put("perms", new ShiroPermissionsFilter());
 
         // 配置访问权限
@@ -79,6 +90,7 @@ public class ShiroConfiguration {
 
         // 配置不同的URL采用的验证方式
         // anon表示可以匿名访问
+        filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/login", "authc");
         filterChainDefinitionMap.put("/back**", "authc");// 表示需要认证才可以访问
         filterChainDefinitionMap.put("/back/**", "authc");// 表示需要认证才可以访问
