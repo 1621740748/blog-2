@@ -7,7 +7,7 @@ bootstrap+springboot博客最简单实现
 [中英个人博客/后台](http://www.jzyblog.top/back/)
 
 ## 1 集成了mybatis+thymeleaf
-## 2 集成了swagger2（访问路径http://www.jzyblog.top/swagger-ui.html）
+## 2 集成了swagger2（访问路径http://www.jzyblog.top/swagger-ui.html/）
 ![图片丢失了](https://github.com/jzyGithub/image/blob/master/1532835057(1).jpg?raw=true)
 ## 3 资源访问：
 ### 1 前台访问路径：http://localhost/
