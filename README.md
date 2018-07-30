@@ -2,13 +2,13 @@
 bootstrap+springboot博客最简单实现
 项目地址
 
-(前台):[前台连接](http://jzyblog.top/)
+[中英个人博客](http://www.jzyblog.top/)
         
-(后台):[后台连接](http://jzyblog.top/back/)
+[中英个人博客/后台](http://www.jzyblog.top/back/)
 
 ## 1 集成了mybatis+thymeleaf
-## 2 集成了swagger2（访问路径http://localhost/swagger-ui.html#/）
-![图片丢失了](http://img1.ph.126.net/q5Klr70mZG6pHuwl0rZfXw==/6597833927240228866.jpg)
+## 2 集成了swagger2（访问路径http://www.jzyblog.top/swagger-ui.html）
+![图片丢失了](https://github.com/jzyGithub/image/blob/master/1532835057(1).jpg?raw=true)
 ## 3 资源访问：
 ### 1 前台访问路径：http://localhost/
 ### 2 后台访问路径：http://localhost/back/
