@@ -6,6 +6,7 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -27,10 +28,18 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(@Qualifier("shiroRealm") ShiroRealm shiroRealm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(shiroRealm);
-//        manager.setSessionManager(sessionManager);
+        manager.setSessionManager(sessionManager());
 //        manager.setCacheManager();
         return manager;
     }
+
+    @Bean
+    public SessionManager sessionManager(){
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setGlobalSessionTimeout(1800000);
+        return sessionManager;
+    }
+
 
     @Bean
     public ShiroLoginFilter shiroLoginFilter(){

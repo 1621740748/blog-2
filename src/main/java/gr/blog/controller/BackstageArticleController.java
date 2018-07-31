@@ -53,9 +53,9 @@ public class BackstageArticleController {
 
     @ApiOperation(value = "后台-文章列表分页", notes = "页面点击导航栏每页按多少展示的分页功能")
     //@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")//这段是对参数进行解释
-    @RequestMapping(value = {"/articlePage"}, method = {RequestMethod.POST})
+    @RequestMapping(value = {"/article/getData"}, method = {RequestMethod.POST})
     @ResponseBody
-    public String articleList(String aoData){
+    public String articleData(String aoData){
         //这块去数据库中取出一定量的数据传递给前台用于显示
         String sEcho = null;
         int iDisplayStart = 0;//起始索引

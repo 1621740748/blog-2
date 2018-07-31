@@ -29,6 +29,32 @@
     where user_name = #{userName,jdbcType=VARCHAR}
   </select>
 
+  <!-- 分页查询 用户信息 -->
+  <select id="getUserList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_user
+    <if test="sSearch != null and sSearch != ''">
+      <where>
+        <if test="userId != null" >
+          user_id like '%${sSearch}%'
+        </if>
+        <if test="userName != null" >
+          or user_name like '%${sSearch}%'
+        </if>
+        <if test="email != null" >
+          email like '%${sSearch}%'
+        </if>
+        <if test="mobile != null" >
+          mobile like '%${sSearch}%'
+        </if>
+      </where>
+    </if>
+    <if test="orderColumn != null and orderDir != null">
+      order by ${orderColumn} ${orderDir}
+    </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_user
     where user_id = #{userId,jdbcType=BIGINT}

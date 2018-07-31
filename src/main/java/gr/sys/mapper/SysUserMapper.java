@@ -2,6 +2,9 @@ package gr.sys.mapper;
 
 import gr.sys.model.SysUser;
 
+import java.util.List;
+import java.util.Map;
+
 public interface SysUserMapper {
     int deleteByPrimaryKey(Long userId);
 
@@ -16,4 +19,6 @@ public interface SysUserMapper {
     int updateByPrimaryKey(SysUser record);
 
     SysUser selectByUserName(String userName);
+
+    List<SysUser> getUserList(Map<String,Object> filter);
 }

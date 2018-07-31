@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"></meta>
     <title>文章管理</title>
-    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular."></meta>
+    <meta name="description" content="个人后台管理系统"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
     <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
@@ -63,11 +63,11 @@
       /*<![CDATA[*/
         var table = $('#sampleTable').DataTable({
             "sDom" : '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-6 crudBtn"><"col-sm-12 col-md-6"p>><"clear">',
-            sScrollx : "100%",
+            scrollX : false,
             bServerSide : true,//开启后台分页功能
             fnServerData: retrieveData, //执行函数
             bPaginate : true,//显示分页按钮
-            sAjaxSource : "/back/articlePage",//请求url
+            sAjaxSource : "/back/article/getData",//请求url
             aoColumns : [{"mDataProp": "id", "sDefaultContent": ""},
                          {"mDataProp": "title", "sDefaultContent": ""},
                          {"mDataProp": "blogCategory.categoryName", "sDefaultContent": "","bSortable": false},
