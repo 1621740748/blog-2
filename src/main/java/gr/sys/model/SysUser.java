@@ -1,6 +1,7 @@
 package gr.sys.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class SysUser {
     private Long userId;
@@ -18,6 +19,15 @@ public class SysUser {
     private Long createUserId;
 
     private Date createTime;
+
+    private List<SysRole> roleList;
+
+    public List<SysRole> getRoleList() {
+        return roleList;
+    }
+    public void setRoleList(List<SysRole> roleList) {
+        this.roleList = roleList;
+    }
 
     public Long getUserId() {
         return userId;

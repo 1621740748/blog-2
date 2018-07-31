@@ -87,4 +87,9 @@ public class SysUserController {
         jsonObject.put("aaData", userList);//返回列表的数据。
         return jsonObject.toJSONString();
     }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String profile(){
+        return "backstage/profile";
+    }
 }

@@ -67,7 +67,7 @@
             aoColumns : [{"mDataProp": "userId", "sDefaultContent": ""},
                          {"mDataProp": "userName", "sDefaultContent": ""},
                          {"mDataProp": "email", "sDefaultContent": ""},
-                         {"mDataProp": "phone", "sDefaultContent": ""}
+                         {"mDataProp": "mobile", "sDefaultContent": ""}
                         ],
             "language": {
               "lengthMenu": "每页 _MENU_ 条记录",
@@ -88,10 +88,6 @@
               }
             },
         });
-      $("#sampleTable tbody").on("click", "tr", function(){
-          $(this).toggleClass("success");
-          //var length = table.rows(".danger").data().length;
-      });
 
       function retrieveData(sSource, aoData, fnCallback) {
           console.log(JSON.stringify(aoData));
