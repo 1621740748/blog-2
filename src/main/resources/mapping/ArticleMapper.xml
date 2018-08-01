@@ -8,7 +8,7 @@
     <result column="click_count" property="clickCount" jdbcType="INTEGER" />
     <result column="is_recommend" property="isRecommend" jdbcType="VARCHAR" />
     <result column="date_publish" property="datePublish" jdbcType="DATE" />
-    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="tag_id" property="tagId" jdbcType="INTEGER" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
@@ -39,7 +39,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, title, description, click_count, is_recommend, date_publish, author_id, category_id,
+    id, title, description, click_count, is_recommend, date_publish, author, category_id,
     tag_id,photo
   </sql>
 
@@ -52,7 +52,7 @@
   <!-- 分页查询,前后台公用这一个sql，后期有需要还可能会拆开 -->
   <select id="getAllArticle" resultMap="ResultMapWithCategory" parameterType="java.util.Map" useCache="true">
     select
-    t1.id, title, t1.description, click_count, is_recommend, date_publish, author_id, category_id,
+    t1.id, title, t1.description, click_count, is_recommend, date_publish, author, category_id,
     tag_id,photo, t2.category_name
     from blog_article t1 left join blog_category t2 on t2.id = t1.category_id
     <choose>
@@ -74,8 +74,8 @@
           <if test="datePublish != null" >
             or date_publish like binary '%${sSearch}%'
           </if>
-          <if test="authorId != null" >
-            or author_id like '%${sSearch}%'
+          <if test="author != null" >
+            or author like '%${sSearch}%'
           </if>
           <if test="categoryId != null" >
             or category_id like '%${sSearch}%'
@@ -105,7 +105,7 @@
 
   <select id="selectByPrimaryKey" resultMap="ResultMapWithCategoryAndBLOBs" parameterType="java.lang.Integer" >
     select
-    t1.id, title, t1.description, click_count, is_recommend, date_publish, author_id, category_id,
+    t1.id, title, t1.description, click_count, is_recommend, date_publish, author, category_id,
     tag_id,photo, category_name,
     <include refid="Blob_Column_List" />
     from blog_article t1, blog_category t2
@@ -188,11 +188,11 @@
   <insert id="insert" parameterType="gr.blog.model.Article" >
     insert into blog_article (id, title, description,
     click_count, is_recommend, date_publish,
-    author_id, category_id, tag_id,
+    author, category_id, tag_id,
     content,photo)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
     #{clickCount,jdbcType=INTEGER}, #{isRecommend,jdbcType=VARCHAR}, #{datePublish,jdbcType=DATE},
-    #{authorId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER},
+    #{author,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER},
     #{content,jdbcType=LONGVARCHAR}),#{photo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="gr.blog.model.Article" keyProperty="id" useGeneratedKeys="true">
@@ -216,8 +216,8 @@
       <if test="datePublish != null" >
         date_publish,
       </if>
-      <if test="authorId != null" >
-        author_id,
+      <if test="author != null" >
+        author,
       </if>
       <if test="categoryId != null" >
         category_id,
@@ -251,8 +251,8 @@
       <if test="datePublish != null" >
         #{datePublish,jdbcType=DATE},
       </if>
-      <if test="authorId != null" >
-        #{authorId,jdbcType=INTEGER},
+      <if test="author != null" >
+        #{author,jdbcType=INTEGER},
       </if>
       <if test="categoryId != null" >
         #{categoryId,jdbcType=INTEGER},
@@ -297,8 +297,8 @@
       <if test="datePublish != null" >
         date_publish = #{datePublish,jdbcType=DATE},
       </if>
-      <if test="authorId != null" >
-        author_id = #{authorId,jdbcType=INTEGER},
+      <if test="author != null" >
+        author = #{author,jdbcType=INTEGER},
       </if>
       <if test="categoryId != null" >
         category_id = #{categoryId,jdbcType=INTEGER},
@@ -322,7 +322,7 @@
       click_count = #{clickCount,jdbcType=INTEGER},
       is_recommend = #{isRecommend,jdbcType=VARCHAR},
       date_publish = #{datePublish,jdbcType=DATE},
-      author_id = #{authorId,jdbcType=INTEGER},
+      author = #{author,jdbcType=INTEGER},
       category_id = #{categoryId,jdbcType=INTEGER},
       tag_id = #{tagId,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -335,7 +335,7 @@
       click_count = #{clickCount,jdbcType=INTEGER},
       is_recommend = #{isRecommend,jdbcType=VARCHAR},
       date_publish = #{datePublish,jdbcType=DATE},
-      author_id = #{authorId,jdbcType=INTEGER},
+      author = #{author,jdbcType=INTEGER},
       category_id = #{categoryId,jdbcType=INTEGER},
       tag_id = #{tagId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

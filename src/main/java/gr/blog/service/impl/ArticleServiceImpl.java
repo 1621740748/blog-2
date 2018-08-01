@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 import gr.blog.mapper.ArticleMapper;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +52,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int addRecord(Article article) {
         article.setDatePublish(new Date());
+        Subject subject = SecurityUtils.getSubject();
+        String userName = (String)subject.getPrincipal();
+        article.setAuthor(userName);
         return articleMapper.insertSelective(article);
     }
 

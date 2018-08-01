@@ -16,7 +16,7 @@ public class Article implements Serializable {
 
     private Date datePublish;
 
-    private Integer authorId;
+    private String author;
 
     private Integer categoryId;
 
@@ -76,12 +76,12 @@ public class Article implements Serializable {
         this.datePublish = datePublish;
     }
 
-    public Integer getAuthorId() {
-        return authorId;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public Integer getCategoryId() {
@@ -133,7 +133,7 @@ public class Article implements Serializable {
                 ", clickCount=" + clickCount +
                 ", isRecommend='" + isRecommend + '\'' +
                 ", datePublish=" + datePublish +
-                ", authorId=" + authorId +
+                ", author=" + author +
                 ", categoryId=" + categoryId +
                 ", tagId=" + tagId +
                 ", content='" + content + '\'' +
