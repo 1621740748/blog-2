@@ -150,7 +150,7 @@
                       if(result.result == 1){//删除成功
                           layer.msg("删除成功");
                           setInterval("sleep()", 500);
-                      }else if(result.result == 0){//删除失败
+                      }else{//删除失败，还有可能是权限不够
                           layer.close(index);
                           layer.msg("删除失败");
                       }

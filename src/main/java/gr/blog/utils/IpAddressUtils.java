@@ -42,12 +42,32 @@ public class IpAddressUtils {
     }
 
 
+    /**
+     * 获取省份
+     * @param ipAddress
+     * @return
+     */
     public String getSubdivision(String ipAddress){
         try {
             CityResponse response = reader.city(InetAddress.getByName(ipAddress));
             return response.getMostSpecificSubdivision().getNames().get("zh-CN");
         }catch (Exception e){
             logger.error("根据IP[{}]获取省份失败:{}", ipAddress, e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 获取省份
+     * @param ipAddress
+     * @return
+     */
+    public String getCity(String ipAddress){
+        try {
+            CityResponse response = reader.city(InetAddress.getByName(ipAddress));
+            return response.getCity().getNames().get("zh-CN");
+        }catch (Exception e){
+            logger.error("根据IP[{}]获取城市失败:{}", ipAddress, e.getMessage());
             return null;
         }
     }

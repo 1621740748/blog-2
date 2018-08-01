@@ -1,9 +1,11 @@
 package gr.blog.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import gr.blog.mapper.ArticleMapper;
 import gr.blog.model.Article;
 import gr.blog.service.ArticleService;
+import gr.blog.utils.IpAddressUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private IpAddressUtils ipAddressUtils;
 
     @Override
     public List<Article> findArticleList(int pageNum, int pageSize, Map<String, Object> filter) {
@@ -46,7 +51,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void addCkickCount(int id, String userIp) {
-        articleMapper.addClickCount(id, userIp);
+        JSONObject json = new JSONObject();
+        //省份
+        String subdivision = ipAddressUtils.getSubdivision(userIp);
+        json.put("subdivision", subdivision);
+        //城市
+        String city = ipAddressUtils.getCity(userIp);
+        json.put("city", city);
+        articleMapper.addClickCount(id, userIp, json.toJSONString());
     }
 
     @Override

@@ -271,7 +271,7 @@
 
   <!-- 增加点击量 -->
   <insert id="addClickCount">
-    insert into blog_visitor_record(article_id, ip) select #{articleId,jdbcType=INTEGER}, #{userIp,jdbcType=VARCHAR} from dual where not exists (select * from blog_visitor_record where ip=#{userIp,jdbcType=VARCHAR} and article_id=#{articleId,jdbcType=INTEGER});
+    insert into blog_visitor_record(article_id, ip, belong_place) select #{articleId,jdbcType=INTEGER}, #{userIp,jdbcType=VARCHAR} ,#{belongPlace, jdbcType=VARCHAR}from dual where not exists (select * from blog_visitor_record where ip=#{userIp,jdbcType=VARCHAR} and article_id=#{articleId,jdbcType=INTEGER});
     update blog_article set click_count = (select count(*) from blog_visitor_record where article_id=#{articleId,jdbcType=INTEGER}) where id = #{articleId,jdbcType=INTEGER};
   </insert>
 

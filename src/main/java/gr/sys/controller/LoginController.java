@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 只负责用户登录模块功能
+ */
 @Controller
 public class LoginController {
 

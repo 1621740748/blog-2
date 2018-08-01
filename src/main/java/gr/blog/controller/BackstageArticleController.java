@@ -147,7 +147,7 @@ public class BackstageArticleController {
         return "redirect:/back/article";
     }
 
-    @RequiresRoles("admin")
+    @RequiresRoles("Administrator")
     @RequiresPermissions("article:delete")
     @ApiOperation("后台管理-文章删除")
     @RequestMapping(value = {"/article/delete"}, method = RequestMethod.POST)

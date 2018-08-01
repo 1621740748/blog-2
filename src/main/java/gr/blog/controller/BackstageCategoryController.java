@@ -8,6 +8,8 @@ import gr.blog.model.BlogCategory;
 import gr.blog.service.CategoryService;
 import gr.blog.utils.StringUtil;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -105,6 +107,8 @@ public class BackstageCategoryController {
         return "backstage/categoryInput";
     }
 
+    @RequiresRoles("Administrator")
+    @RequiresPermissions({"category:add", "category:update"})
     @ApiOperation("后台管理-分类新增/修改")
     @RequestMapping(value = {"/category/add", "/category/update"}, method = RequestMethod.POST)
     public String categoryAdd(@ModelAttribute BlogCategory category){
@@ -116,6 +120,8 @@ public class BackstageCategoryController {
         return "redirect:/back/category";
     }
 
+    @RequiresRoles("Administrator")
+    @RequiresPermissions("category:delete")
     @ApiOperation("后台管理-分类删除")
     @RequestMapping(value = {"/category/delete"}, method = RequestMethod.POST)
     @ResponseBody

@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 用户管理模块
+ */
 @Controller
 @RequestMapping("/back")
 public class SysUserController {

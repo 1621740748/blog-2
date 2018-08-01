@@ -35,8 +35,7 @@ public class FrontstageArticleController {
     @Autowired
     private TagService tagService;
 
-    @Autowired
-    private IpAddressUtils ipAddressUtils;
+
 
     @ApiOperation("前台-首页列表展示")
     @RequestMapping(value = {"/","/index","/index/{pageNum}"}, method = RequestMethod.GET)
@@ -99,8 +98,6 @@ public class FrontstageArticleController {
     public String detail(@PathVariable("id") int id, ModelMap model, HttpServletRequest request){
         Article article = articleService.get(id);
         articleService.addCkickCount(id, request.getRemoteAddr());//增加一个点击量
-        String subdivision = ipAddressUtils.getSubdivision(request.getRemoteAddr());
-        //System.out.println(subdivision);
 
         int count = articleService.getLikeCount(id);
         model.addAttribute("likeNum", count);
