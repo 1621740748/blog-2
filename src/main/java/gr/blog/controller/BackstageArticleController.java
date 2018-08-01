@@ -12,6 +12,8 @@ import gr.blog.service.TagService;
 import gr.blog.utils.ImageUploadUtil;
 import gr.blog.utils.StringUtil;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -129,6 +131,8 @@ public class BackstageArticleController {
         return "backstage/articleInput";
     }
 
+    @RequiresRoles("Administrator")
+    @RequiresPermissions({"article:add", "article:update"})
     @ApiOperation("后台管理-文章新增/修改")
     @RequestMapping(value = {"/article/add", "/article/update"}, method = RequestMethod.POST)
     public String articleAdd(@ModelAttribute Article article, String[] tags){
@@ -143,6 +147,8 @@ public class BackstageArticleController {
         return "redirect:/back/article";
     }
 
+    @RequiresRoles("admin")
+    @RequiresPermissions("article:delete")
     @ApiOperation("后台管理-文章删除")
     @RequestMapping(value = {"/article/delete"}, method = RequestMethod.POST)
     @ResponseBody

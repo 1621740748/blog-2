@@ -1,6 +1,7 @@
 package gr.sys.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -13,10 +14,12 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * 描述：Shiro权限配置
@@ -88,6 +91,7 @@ public class ShiroConfiguration {
         // 配置登录的url和登录成功的url
         bean.setLoginUrl("/login");
         bean.setSuccessUrl("/back");
+        bean.setUnauthorizedUrl("/backstage/unauthorized");
 
         // 定义过滤器
         Map<String, Filter> filterMap = bean.getFilters();
@@ -141,5 +145,15 @@ public class ShiroConfiguration {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    @Bean(name="simpleMappingExceptionResolver")
+    public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
+        Properties mappings = new Properties();
+        mappings.setProperty("org.apache.shiro.authz.UnauthorizedException", "/backstage/unauthorized");
+        mappings.setProperty("org.apache.shiro.authz.UnauthenticatedException", "/backstage/unauthenticated");
+        r.setExceptionMappings(mappings);
+        return r;
     }
 }

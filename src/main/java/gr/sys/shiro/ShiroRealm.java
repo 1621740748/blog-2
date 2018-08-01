@@ -44,7 +44,7 @@ public class ShiroRealm extends AuthorizingRealm {
                 simpleAuthorizationInfo.addStringPermission(menu.getPerms());
             }
         }
-        return null;
+        return simpleAuthorizationInfo;
     }
 
     /**
