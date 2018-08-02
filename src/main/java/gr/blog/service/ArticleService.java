@@ -81,5 +81,11 @@ public interface ArticleService {
      * @param ip
      */
     void addLike(Integer articleId, String ip);
+
+    /**
+     * 获取页面基本统计信息，包括：浏览量、文章总数、ip总数、喜欢数
+     * @return
+     */
+    Map<String,Object> getBaseStatisticMap();
 }
 

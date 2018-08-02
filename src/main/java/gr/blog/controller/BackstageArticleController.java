@@ -43,7 +43,10 @@ public class BackstageArticleController {
 
     @ApiOperation("后台首页")
     @RequestMapping(value = {"", "/index"}, method = RequestMethod.GET)
-    public String index(){
+    public String index(ModelMap modelMap){
+        Map<String, Object> statisticMap = articleService.getBaseStatisticMap();
+        modelMap.addAttribute("baseStatistic", statisticMap);
+
         return "backstage/index";
     }
 

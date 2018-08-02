@@ -120,6 +120,11 @@
     select count(love) from blog_visitor_record where article_id = #{articleId,jdbcType=INTEGER} and ip = #{userIp,jdbcType=INTEGER} and love = '1';
   </select>
 
+  <!-- 获得基本统计信息，浏览量、ip数、文章总数、喜欢数 -->
+  <select id="getBaseStatisticMap" resultType="java.util.Map">
+      select * from (select count(case love when '1' then 'islove' end) love_count, count(1) views, count(distinct(ip)) ip_count from blog_visitor_record) t1, (select count(1) article_count from blog_article)t2;
+  </select>
+
   <select id="getPre" resultMap="BaseResultMap">
     select *
     from blog_article

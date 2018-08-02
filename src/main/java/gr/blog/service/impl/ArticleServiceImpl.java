@@ -139,4 +139,14 @@ public class ArticleServiceImpl implements ArticleService {
     public void addLike(Integer articleId, String ip) {
         articleMapper.addLike(articleId, ip);
     }
+
+    /**
+     * 获取页面基本统计信息，包括：浏览量、文章总数、ip总数、喜欢数
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> getBaseStatisticMap() {
+        return articleMapper.getBaseStatisticMap();
+    }
 }

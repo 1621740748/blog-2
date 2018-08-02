@@ -44,4 +44,6 @@ public interface ArticleMapper {
     int isLiked(@Param("articleId") int articleId, @Param("userIp") String userIp);
 
     void addLike(@Param("articleId") int articleId, @Param("userIp") String userIp);
+
+    Map<String,Object> getBaseStatisticMap();
 }
