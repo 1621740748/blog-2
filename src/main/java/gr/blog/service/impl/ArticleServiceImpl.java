@@ -149,4 +149,14 @@ public class ArticleServiceImpl implements ArticleService {
     public Map<String, Object> getBaseStatisticMap() {
         return articleMapper.getBaseStatisticMap();
     }
+
+    /**
+     * 统计ip城市分布列表
+     *
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findIpBelongPlaceList() {
+        return articleMapper.findIpBelongPlaceList();
+    }
 }

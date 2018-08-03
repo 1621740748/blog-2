@@ -46,4 +46,6 @@ public interface ArticleMapper {
     void addLike(@Param("articleId") int articleId, @Param("userIp") String userIp);
 
     Map<String,Object> getBaseStatisticMap();
+
+    List<Map<String,Object>> findIpBelongPlaceList();
 }

@@ -87,5 +87,11 @@ public interface ArticleService {
      * @return
      */
     Map<String,Object> getBaseStatisticMap();
+
+    /**
+     * 统计ip城市分布列表
+     * @return
+     */
+    List<Map<String,Object>> findIpBelongPlaceList();
 }
 

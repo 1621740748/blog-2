@@ -50,7 +50,7 @@
   <cache eviction="LRU" flushInterval="5000" size="10000"/>
 
   <!-- 分页查询,前后台公用这一个sql，后期有需要还可能会拆开 -->
-  <select id="getAllArticle" resultMap="ResultMapWithCategory" parameterType="java.util.Map" useCache="true">
+  <select id="getAllArticle" resultMap="ResultMapWithCategory" parameterType="java.util.Map" useCache="false">
     select
     t1.id, title, t1.description, click_count, is_recommend, date_publish, author, category_id,
     tag_id,photo, t2.category_name
@@ -123,6 +123,11 @@
   <!-- 获得基本统计信息，浏览量、ip数、文章总数、喜欢数 -->
   <select id="getBaseStatisticMap" resultType="java.util.Map">
       select * from (select count(case love when '1' then 'islove' end) love_count, count(1) views, count(distinct(ip)) ip_count from blog_visitor_record) t1, (select count(1) article_count from blog_article)t2;
+  </select>
+
+  <!-- ip城市分布情况 -->
+  <select id="findIpBelongPlaceList" resultType="java.util.Map">
+    SELECT belong_place, count(distinct(ip)) belong_count FROM blog.blog_visitor_record group by belong_place;
   </select>
 
   <select id="getPre" resultMap="BaseResultMap">

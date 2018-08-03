@@ -46,8 +46,15 @@ public class BackstageArticleController {
     public String index(ModelMap modelMap){
         Map<String, Object> statisticMap = articleService.getBaseStatisticMap();
         modelMap.addAttribute("baseStatistic", statisticMap);
-
         return "backstage/index";
+    }
+
+    @ApiOperation("后台首页---polar图提供数据")
+    @RequestMapping(value = "/polardata",method = RequestMethod.POST)
+    @ResponseBody
+    public String belongPlaceStatic(){
+        List<Map<String, Object>> belongPlaceList = articleService.findIpBelongPlaceList();
+        return JSONArray.toJSONString(belongPlaceList);
     }
 
     @ApiOperation(value = "后台-文章列表展示", notes = "页面点击导航栏进入文章管理，文章以表格形式展示。")
