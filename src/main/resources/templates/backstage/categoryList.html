@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
     <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
-    <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
 </head>
 <body class="app sidebar-mini rtl">
 <!-- Navbar-->
@@ -40,20 +40,25 @@
                         </tr>
                         </thead>
                     </table>
+                    <div class="btn-group" style="display:none" shiro:hasPermission="category:add, category:update, category:delete">
+                        <button id="add" type="button" class="btn btn-default btn-success"><i class="fa fa-plus-circle"></i>增加</button >
+                        <button id="update" type="button" class="btn btn-default btn-info"><i class="fa fa-pencil-square-o"></i>修改</button >
+                        <button id="delete" type="button" class="btn btn-default btn-danger"><i class="fa fa-trash-o"></i>删除</button >
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
 <!-- Essential javascripts for application to work-->
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.14.3/popper.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="/js/main.js"></script>
 <!-- The javascript plugin to display page loading on top-->
-<script src="/layer/layer.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
 <!-- Data table plugin-->
-<script type="text/javascript" src="/js/plugins/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.5/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/js/plugins/dataTables.bootstrap.min.js"></script>
 </body>
 <script type="text/javascript" th:inline="javascript">
@@ -61,6 +66,7 @@
         var table = $('#sampleTable').DataTable({
             "sDom" : '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-6 crudBtn"><"col-sm-12 col-md-6"p>><"clear">',
             sScrollx : "100%",
+            bAutoWidth: false,
             bServerSide : true,//开启后台分页功能
             fnServerData: retrieveData, //执行函数
             bPaginate : true,//显示分页按钮
@@ -94,9 +100,7 @@
           //var length = table.rows(".danger").data().length;
       });
 
-      $("div.crudBtn").html('<button id="add" type="button" class="btn btn-default btn-success"><i class="fa fa-plus-circle"></i>增加</button >'
-                          + ' <button id="update" type="button" class="btn btn-default btn-info"><i class="fa fa-pencil-square-o"></i>修改</button >'
-                          + ' <button id="delete" type="button" class="btn btn-default btn-danger"><i class="fa fa-trash-o"></i>删除</button >');
+      $("div.crudBtn").html($(".btn-group").html());
 
       $("#add").bind("click",function(){
           window.location.href = "/back/category/input";

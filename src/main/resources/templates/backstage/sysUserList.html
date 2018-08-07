@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
     <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
-    <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
 </head>
 <body class="app sidebar-mini rtl">
 <!-- Navbar-->
@@ -46,19 +46,20 @@
     </div>
 </main>
 <!-- Essential javascripts for application to work-->
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.14.3/popper.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="/js/main.js"></script>
 <!-- The javascript plugin to display page loading on top-->
 <!-- Data table plugin-->
-<script type="text/javascript" src="/js/plugins/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.5/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/js/plugins/dataTables.bootstrap.min.js"></script>
 </body>
 <script type="text/javascript" th:inline="javascript">
       /*<![CDATA[*/
         var table = $('#sampleTable').DataTable({
             sScrollx : "100%",
+            bAutoWidth: false,
             searching: true,
             bServerSide : true,//开启后台分页功能
             fnServerData: retrieveData, //执行函数
