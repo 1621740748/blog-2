@@ -7,16 +7,11 @@ bootstrap+springboot博客最简单实现
 [中英个人博客/后台](http://www.jzyblog.top/back/)
 
 ## 1 集成了mybatis+thymeleaf
-## 2 集成了swagger2（访问路径
+## 2 集成了swagger2
 ## 3 资源访问：
 ### 1 前台访问路径：http://localhost/
 ### 2 后台访问路径：http://localhost/back/
-## 4 异常处理：
-自定义异常处理类、自定义异常类
-```
-gr.blog.exception.CustomExceptionHandler
-gr.blog.exception.FontException
-```
+## 4 异常处理
 ## 5 阿里云服务器部署（资源在app文件夹下）：
 参考教程[点击打开](https://blog.csdn.net/m0_37063257/article/details/78300877)
 ```
