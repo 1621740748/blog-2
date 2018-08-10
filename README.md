@@ -8,7 +8,6 @@ bootstrap+springboot博客最简单实现
 
 ## 1 集成了mybatis+thymeleaf
 ## 2 集成了swagger2（访问路径
-![图片丢失了](https://github.com/jzyGithub/image/blob/master/1532835057(1).jpg?raw=true)
 ## 3 资源访问：
 ### 1 前台访问路径：http://localhost/
 ### 2 后台访问路径：http://localhost/back/
@@ -39,13 +38,9 @@ config.image_previewText = '图片最大宽度最好设置为760px';
 DataTable显示表格，开启后台分页
 # 小总结展示
 ## 后台文章管理
-![图片丢失了](http://wx1.sinaimg.cn/mw690/0060lm7Tly1fu4w8w97ovj31hc0r2tat.jpg)
 ## 前台首页展示
-![图片丢失了](http://i2.bvimg.com/652887/97851bf5ae840b15s.png)
 ## 关于我
-![图片丢失了](http://i2.bvimg.com/652887/12f58cb29a237014s.png)
 ## 9 集成畅言评论留言系统
-![图片丢失了](http://i1.bvimg.com/652887/b4acfaba0e20c83cs.png)
 ## 10 前台页面公共代码抽取
 1 首页轮播+右边两个博客：按照id倒序查找，并查询前五名喜欢数最多的文章，轮播图分三个 ，右边分两个
 
