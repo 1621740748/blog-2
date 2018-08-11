@@ -58,7 +58,7 @@
     <div class="blogs" data-scroll-reveal="enter bottom over 1s" th:each="article,status: ${articleList}">
       <h3 class="blogtitle"><a th:href="'/detail/' + ${article.id}" target="_blank" th:text="${article.title}"></a></h3>
       <span th:class="${#arrays.length(#strings.arraySplit(article.photo, ';')) == 1}?(${status.even}?'blogpic':'bigpic'):'bplist'"><a th:href="'/detail/' + ${article.id}" target="_blank"><li th:each="var: ${#strings.arraySplit(article.photo, ';')}"><img th:src="${var}" alt=""></li></a></span>
-      <p class="blogtext" th:text="${article.description}"></p>
+      <p class="blogtext" th:utext="${article.description}"></p>
       <div class="bloginfo">
         <ul>
           <li class="author"><a href="/">蒋中英</a></li>

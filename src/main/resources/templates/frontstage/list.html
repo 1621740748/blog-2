@@ -28,7 +28,7 @@
 </header>
 <div class="pagebg sh"></div>
 <div class="container">
-  <h1 class="t_nav"><span th:text="${category.parentCategory.description}"></span><a href="/" class="n1">网站首页</a><a th:href="'/category/' + ${category.id} + '/'" class="n2" th:text="${category.parentCategory.categoryName}"></a></h1>
+  <h1 class="t_nav"><span th:utext="${category.parentCategory.description}"></span><a href="/" class="n1">网站首页</a><a th:href="'/category/' + ${category.id} + '/'" class="n2" th:text="${category.parentCategory.categoryName}"></a></h1>
   <!--blogsbox begin-->
   <div class="blogsbox">
     <div class="blogs" data-scroll-reveal="enter bottom over 1s" th:each="article,status: ${articleList}">
