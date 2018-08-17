@@ -1,4 +1,4 @@
-package gr.wx.message;
+package gr.wx.model.message;
 
 /**
  * 文本消息内容

@@ -1,6 +1,6 @@
 package gr.wx.service;
 
-import gr.wx.message.TextMessage;
+import gr.wx.model.message.TextMessage;
 import gr.wx.utils.MessageUtil;
 import org.springframework.stereotype.Service;
 

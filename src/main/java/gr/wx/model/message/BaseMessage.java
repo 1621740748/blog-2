@@ -1,4 +1,4 @@
-package gr.wx.message;
+package gr.wx.model.message;
 
 public class BaseMessage {
     //开发者微信号
