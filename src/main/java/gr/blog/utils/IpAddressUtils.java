@@ -58,7 +58,7 @@ public class IpAddressUtils {
     }
 
     /**
-     * 获取省份
+     * 获取城市
      * @param ipAddress
      * @return
      */

@@ -52,4 +52,10 @@ public class WxCoreController {
         //System.out.println(respXml);
         return respXml;
     }
+
+    @ApiOperation("")
+    @RequestMapping("/getOauth")
+    public String getOauth(){
+        return "wx/oauth";
+    }
 }

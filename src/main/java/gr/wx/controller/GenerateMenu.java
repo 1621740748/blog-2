@@ -9,6 +9,8 @@ import gr.wx.utils.WeixinUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * 生成自定义菜单功能类
  */
@@ -18,7 +20,16 @@ public class GenerateMenu {
 
 
     public static void main(String[] args) {
-        // 第三方用户唯一凭证
+        String source="http://jzyblog.top/wx/getOauth";
+        String result=null;
+        try {
+            result = java.net.URLEncoder.encode(source, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+
+        /*// 第三方用户唯一凭证
         String appId = "wx95e5b7024f04b3ed";
         // 第三方用户唯一凭证密钥
         String appSecret = "8ed1a8d91ecb1ee1b6d72278ca5dfc30";
@@ -35,7 +46,7 @@ public class GenerateMenu {
                 log.info("菜单创建成功！");
             else
                 log.info("菜单创建失败，错误码：" + result);
-        }
+        }*/
     }
 
     /**
