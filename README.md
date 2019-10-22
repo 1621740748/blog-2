@@ -2,9 +2,7 @@
 bootstrap+springboot博客最简单实现
 项目地址
 
-[中英个人博客](http://www.jzyblog.top/)
-        
-[中英个人博客/后台(测试账户:admin/admin)](http://www.jzyblog.top/back/)
+[中英个人博客](http://49.233.77.111/)
 
 ## 1 集成了mybatis+thymeleaf
 ## 2 集成了swagger2
